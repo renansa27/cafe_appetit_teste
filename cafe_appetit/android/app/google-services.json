@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "375495373473",
+    "firebase_url": "https://cafe-appetit.firebaseio.com",
+    "project_id": "cafe-appetit",
+    "storage_bucket": "cafe-appetit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375495373473:android:8e872743ae593fa54536e0",
+        "android_client_info": {
+          "package_name": "com.example.cafe_appetit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375495373473-9mlfr7r8v8no1ug3ukpj38veomd3ab1i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANxEMAE5WEVzPX3YQHtKm99kwbDTGwlQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375495373473-9mlfr7r8v8no1ug3ukpj38veomd3ab1i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
