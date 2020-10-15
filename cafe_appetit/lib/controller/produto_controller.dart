@@ -6,14 +6,30 @@ class ProdutoController = _ProdutoControllerBase with _$ProdutoController;
 
 abstract class _ProdutoControllerBase with Store {
   @observable
-  ProdutoModel produto = ProdutoModel();
+  ProdutoModel produtoModel = ProdutoModel();
+
+  @observable
+  int id;
 
   @observable
   int quantidadeCliente = 1;
 
+  @observable
+  bool selectedProdutc = false;
+
   @action
-  setProduto(ProdutoModel produto) {
-    this.produto = produto;
+  changeSelectedProdutc() {
+    selectedProdutc = !selectedProdutc;
+  }
+
+  @action
+  setOrderInfoModel(ProdutoModel produtoModel) {
+    this.produtoModel = produtoModel;
+  }
+
+  @action
+  setId(index) {
+    this.id = index;
   }
 
   @action
@@ -30,5 +46,8 @@ abstract class _ProdutoControllerBase with Store {
 
   @computed
   double get totalCompra =>
-      quantidadeCliente * double.parse(produto.preco.toStringAsFixed(2));
+      quantidadeCliente *
+      double.parse(
+        produtoModel.price.toStringAsFixed(2),
+      );
 }

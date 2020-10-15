@@ -28,9 +28,9 @@ class ConnectionFirebase {
     try {
       DocumentSnapshot res = await machine.doc(id).get();
       //Seta o ID da máquina que está atendendo o cliente
-      machineController.setId(id);
+      //machineController.setId(id);
       //Seta a lista de produtos da máquina
-      machineController.setProductsMap(res.data()['listProductsMachine']);
+      //machineController.setProductsMap(res.data()['listProductsMachine']);
       return true;
       //print(machineController.listProductsMachine);
     } catch (e) {
@@ -53,7 +53,7 @@ class ConnectionFirebase {
   }
 
   Future<bool> realizarCompra() async {
-    print('Total Mobx: ${produtoController.totalCompra}');
+    //print('Total Mobx: ${produtoController.totalCompra}');
     /* double total = double.parse(
         (userController.user.saldo - produtoController.totalCompra)
             .toStringAsFixed(2));

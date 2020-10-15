@@ -1,17 +1,21 @@
 class ProdutoModel {
-  final int id;
-  final String name;
-  final String urlImage;
-  final String descricao;
-  final int quantidade;
-  final double preco;
+  int id;
+  String image;
+  String produtoName;
+  double price;
+  String optionDescription;
+  Map<int, String> options = {};
+  int qnt;
+  String note;
 
   ProdutoModel({
     this.id,
-    this.name,
-    this.urlImage,
-    this.descricao,
-    this.quantidade,
-    this.preco,
+    this.image,
+    this.produtoName,
+    this.price,
+    this.optionDescription,
+    this.options,
+    this.qnt,
+    this.note,
   });
 }

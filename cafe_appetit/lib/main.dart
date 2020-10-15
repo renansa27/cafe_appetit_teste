@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'controller/machine_controller.dart';
-import 'controller/produto_controller.dart';
+import 'controller/orders_list.dart';
 import 'controller/user_controller.dart';
 import 'view/home_view.dart';
 import 'view/login_view.dart';
+import 'view/order_details_view.dart';
+import 'view/select_customers_view.dart';
 
 //Instâncias do Mobx
 final userController = UserController();
-final produtoController = ProdutoController();
-final machineController = MachineController();
+//final produtoController = ProdutoController();
+final machineController = OrdersListController();
 final loginController = LoginController();
 
 Future<void> main() async {
@@ -34,20 +35,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Café Appetit',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        unselectedWidgetColor: Color(0xffFF8822),
       ),
-      initialRoute: '/login',
+      initialRoute: '/home',
       routes: {
         '/login': (context) => Login(),
-        //'/signin': (context) => SignUp(),
         '/home': (context) => Home(),
         '/orderInfo': (context) => OrderInfo(),
-        //'/qrcodescanner': (context) => QRViewWidget(),
-        //'/qrcodegenerator': (context) => QRCreatorWidget(),
-        //'/store': (context) => Store(),
-        //'/payment': (context) => PaymentPage(),
-        //'/addsaldo': (context) => AddSaldo(),
+        '/orderDetails': (context) => OrderDetails(),
+        '/selectCustumers': (context) => SelectCustomers(),
       },
     );
   }

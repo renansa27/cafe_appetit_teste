@@ -1,57 +1,85 @@
+import 'package:cafe_appetit/controller/orders_list.dart';
 import 'package:cafe_appetit/main.dart';
+import 'package:cafe_appetit/model/cliente_model.dart';
+import 'package:cafe_appetit/model/order_list_model.dart';
 import 'package:cafe_appetit/model/order_model.dart';
+import 'package:cafe_appetit/model/produto_model.dart';
 import 'package:flutter/material.dart';
 
-import './order_widget.dart';
+import 'order_widget.dart';
 
 class Home extends StatelessWidget {
   final ScrollController scrollController = ScrollController();
-  final List<List<Order>> listOrdersByDay = [
-    [
-      Order(
-        customerName: 'Hanna Montana',
-        price: 5.5,
-        order: '1x Cuscuz com calabresa, 1x s...',
-      ),
-      Order(
-        customerName: 'Hanna Montana',
-        price: 5.5,
-        order: '2x Cuscuz com calabresa, 3x s...',
-      ),
-      Order(
-        customerName: 'Hanna Montana',
-        price: 5.5,
-        order: '2x Cuscuz com calabresa, 4x s...',
-      ),
-    ],
-    [
-      Order(
-        customerName: 'Hanna Montana',
-        price: 5.5,
-        order: '2x Cuscuz com calabresa, 2x s...',
-      ),
-      Order(
-        customerName: 'Hanna Montana',
-        price: 5.5,
-        order: '2x Cuscuz com calabresa, 2x s...',
-      ),
-      Order(
-        customerName: 'Hanna Montana',
-        price: 5.5,
-        order: '2x Cuscuz com calabresa, 2x s...',
-      ),
-      Order(
-        customerName: 'Hanna Montana',
-        price: 5.5,
-        order: '2x Cuscuz com calabresa, 2x s...',
-      ),
-      Order(
-        customerName: 'Hanna Montana',
-        price: 5.5,
-        order: '2x Cuscuz com calabresa, 2x s...',
-      ),
-    ]
-  ];
+  final OrderListModel listOrdersByDay = OrderListModel(
+    listOrder: {
+      //Dia 23/10/2020
+      DateTime.parse('2020-10-23'): [
+        OrderModel(
+          cliente: ClienteModel(name: 'Hanna Montana'),
+          produtos: [
+            ProdutoModel(
+              produtoName: 'Cuscuz com calabresa',
+              qnt: 1,
+              price: 2.25,
+            ),
+            ProdutoModel(
+              produtoName: 'Salgado',
+              qnt: 1,
+              price: 2.50,
+            ),
+          ],
+        ),
+        OrderModel(
+          cliente: ClienteModel(name: 'Pablo Alvarez'),
+          produtos: [
+            ProdutoModel(
+              produtoName: 'Salgado',
+              qnt: 2,
+              price: 2.25,
+            ),
+            ProdutoModel(
+              produtoName: 'Pão de queijo',
+              qnt: 1,
+              price: 2.25,
+            ),
+          ],
+        ),
+        OrderModel(
+          cliente: ClienteModel(name: 'Andreia Barros'),
+          produtos: [
+            ProdutoModel(
+              produtoName: 'Misto quente',
+              qnt: 1,
+              price: 2.25,
+            ),
+            ProdutoModel(
+              produtoName: 'Pão com carne',
+              qnt: 1,
+              price: 2.25,
+            ),
+          ],
+        ),
+      ],
+      //Dia 22/10/2020
+      DateTime.parse('2020-10-22'): [
+        OrderModel(
+          cliente: ClienteModel(name: 'Hanna Montana'),
+          produtos: [
+            ProdutoModel(
+              produtoName: 'Pão de Queijo',
+              qnt: 1,
+              price: 2.25,
+            ),
+            ProdutoModel(
+              produtoName: 'Pão com carne',
+              qnt: 1,
+              price: 2.25,
+            ),
+          ],
+        ),
+      ]
+    },
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +130,11 @@ class Home extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4.0),
                             boxShadow: [
                               BoxShadow(
-                                  color: Colors.grey[200],
-                                  offset: Offset(0, 0),
-                                  blurRadius: 10.0,
-                                  spreadRadius: 1.0)
+                                color: Colors.grey[200],
+                                offset: Offset(0, 0),
+                                blurRadius: 10.0,
+                                spreadRadius: 1.0,
+                              ),
                             ],
                           ),
                           child: FlatButton(
@@ -161,10 +190,11 @@ class Home extends StatelessWidget {
                     child: ListView.builder(
                       controller: scrollController,
                       shrinkWrap: true,
-                      itemCount: listOrdersByDay.length,
+                      itemCount: listOrdersByDay.listOrder.length,
                       itemBuilder: (_, int index) {
-                        print('$deviceHeigth');
-                        if (listOrdersByDay.length > 0) {
+                        if (listOrdersByDay.listOrder.length > 0) {
+                          OrdersListController ordersListController =
+                              OrdersListController();
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -174,28 +204,41 @@ class Home extends StatelessWidget {
                                 ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  'Em 23/10 você vendeu',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Em ${listOrdersByDay.listOrder.keys.elementAt(index).day}/${listOrdersByDay.listOrder.keys.elementAt(index).month} você vendeu R\$ ${listOrdersByDay.getTotalDay()[index].toStringAsFixed(2).replaceAll('.', ',')}',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               ListView.builder(
                                   physics: NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: listOrdersByDay[index].length,
+                                  itemCount: listOrdersByDay.listOrder.values
+                                      .elementAt(index)
+                                      .length,
                                   itemBuilder: (_, int indexOrder) {
-                                    Order order =
-                                        listOrdersByDay[index][indexOrder];
+                                    OrderModel order = listOrdersByDay
+                                        .listOrder.values
+                                        .elementAt(index)
+                                        .elementAt(indexOrder);
                                     while (indexOrder <
-                                        listOrdersByDay[index].length - 1) {
+                                        listOrdersByDay.listOrder.values
+                                                .elementAt(index)
+                                                .length -
+                                            1) {
                                       return Column(
                                         children: [
                                           SizedBox(
                                             height: 24,
                                           ),
                                           OrderWidget(
+                                            orderController:
+                                                ordersListController,
                                             order: order,
                                           ),
                                           SizedBox(
@@ -211,6 +254,7 @@ class Home extends StatelessWidget {
                                           height: 24,
                                         ),
                                         OrderWidget(
+                                          orderController: ordersListController,
                                           order: order,
                                         ),
                                         SizedBox(

@@ -1,16 +1,22 @@
+import 'package:cafe_appetit/controller/orders_list.dart';
 import 'package:cafe_appetit/model/order_model.dart';
 import 'package:flutter/material.dart';
 
 class OrderWidget extends StatelessWidget {
-  final Order order;
+  final OrderModel order;
+  final OrdersListController orderController;
 
-  OrderWidget({this.order});
+  OrderWidget({this.order, this.orderController});
 
   @override
   Widget build(BuildContext context) {
+    final total = order.getTotal();
+    orderController.addTotalByDay(total);
+    final description = order.getDescription();
     return Container(
       width: MediaQuery.of(context).size.width - 32,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ClipOval(
             child: Image.asset('lib/assets/avatar.png'),
@@ -19,21 +25,21 @@ class OrderWidget extends StatelessWidget {
             width: 16,
           ),
           Container(
-            width: 272,
+            width: MediaQuery.of(context).size.width - 100,
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      order.customerName,
+                      order.cliente.name,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      'R\$ ${((order.price).toStringAsFixed(2)).replaceAll('.', ',')}',
+                      'R\$ ${((total).toStringAsFixed(2)).replaceAll('.', ',')}',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -44,12 +50,17 @@ class OrderWidget extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      order.order,
-                      style: TextStyle(
-                        fontSize: 16,
+                    Expanded(
+                      child: Text(
+                        //'Teste',
+                        //produto.order,
+                        description,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ],

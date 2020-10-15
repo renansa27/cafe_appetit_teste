@@ -1,8 +1,11 @@
-import 'package:cafe_appetit/model/order_model.dart';
+import 'package:cafe_appetit/controller/carrinho_controller.dart';
+import 'package:cafe_appetit/controller/produto_controller.dart';
+import 'package:cafe_appetit/model/produto_model.dart';
+import 'package:cafe_appetit/model/produtos_list_model.dart';
 import 'package:flutter/material.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
-import 'order_widget.dart';
+import 'widgets/order_info_widget_button.dart';
 
 class OrderInfo extends StatefulWidget {
   @override
@@ -12,57 +15,67 @@ class OrderInfo extends StatefulWidget {
 class _OrderInfoState extends State<OrderInfo> {
   @override
   Widget build(BuildContext context) {
-    final List<List<Order>> listOrdersByDay = [
-      [
-        Order(
-          customerName: 'Hanna Montana',
-          price: 5.5,
-          order: '1x Cuscuz com calabresa, 1x s...',
-        ),
-        Order(
-          customerName: 'Hanna Montana',
-          price: 5.5,
-          order: '2x Cuscuz com calabresa, 3x s...',
-        ),
-        Order(
-          customerName: 'Hanna Montana',
-          price: 5.5,
-          order: '2x Cuscuz com calabresa, 4x s...',
-        ),
-      ],
-      [
-        Order(
-          customerName: 'Hanna Montana',
-          price: 5.5,
-          order: '2x Cuscuz com calabresa, 2x s...',
-        ),
-        Order(
-          customerName: 'Hanna Montana',
-          price: 5.5,
-          order: '2x Cuscuz com calabresa, 2x s...',
-        ),
-        Order(
-          customerName: 'Hanna Montana',
-          price: 5.5,
-          order: '2x Cuscuz com calabresa, 2x s...',
-        ),
-        Order(
-          customerName: 'Hanna Montana',
-          price: 5.5,
-          order: '2x Cuscuz com calabresa, 2x s...',
-        ),
-        Order(
-          customerName: 'Hanna Montana',
-          price: 5.5,
-          order: '2x Cuscuz com calabresa, 2x s...',
-        ),
-      ]
-    ];
+    final CarrinhoController carrinhoController = CarrinhoController();
+    final ProdutosList listOrdersByDay = ProdutosList(
+      listProdutos: {
+        'Cuzcus': [
+          ProdutoModel(
+            id: 0,
+            image: 'lib/assets/cuzcus_simples.png',
+            produtoName: 'Cuzcus simples',
+            price: 2.25,
+            optionDescription: 'milho ou arroz',
+            options: {0: 'Cuscuz de milho', 1: 'Cuscuz de arroz'},
+          ),
+          ProdutoModel(
+            id: 1,
+            image: 'lib/assets/cuzcus_completo.png',
+            produtoName: 'Cuzcus completo',
+            price: 3.25,
+            optionDescription: 'milho ou arroz',
+            options: {0: 'Cuscuz de milho', 1: 'Cuscuz de arroz'},
+          ),
+        ],
+        'Pães': [
+          ProdutoModel(
+            id: 2,
+            image: 'lib/assets/pao_caseiro.png',
+            produtoName: 'Pão Caseiro',
+            price: 2.25,
+          ),
+          ProdutoModel(
+            id: 3,
+            image: 'lib/assets/pao_caseiro_completo.png',
+            produtoName: 'Pão Caseiro completo',
+            price: 3.25,
+          ),
+          ProdutoModel(
+            id: 4,
+            image: 'lib/assets/misto_quente.png',
+            produtoName: 'Misto quente',
+            price: 3.00,
+          ),
+          ProdutoModel(
+            id: 5,
+            image: 'lib/assets/lingua_de_sogra.png',
+            produtoName: 'Lingua de sogra (pq.)',
+            price: 2.00,
+          ),
+          ProdutoModel(
+            id: 6,
+            image: 'lib/assets/lingua_de_sogra.png',
+            produtoName: 'Lingua de sogra (gr.)',
+            price: 3.00,
+          ),
+        ],
+      },
+    );
     final deviceHeigth = MediaQuery.of(context).size.height -
         MediaQuery.of(context).padding.top -
         AppBar().preferredSize.height;
     final deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Color(0xffFAFAFA),
       appBar: AppBar(
         backgroundColor: Color(0xffFAFAFA),
         elevation: 0,
@@ -77,14 +90,13 @@ class _OrderInfoState extends State<OrderInfo> {
         ),
       ),
       body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             Container(
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -161,17 +173,11 @@ class _OrderInfoState extends State<OrderInfo> {
                             ),
                           ],
                         ),
-                        /* child: LinearProgressIndicator(
-                            minHeight: 8,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                                Color(0xffFF8822)),
-                            backgroundColor: Colors.black12,
-                            value: 0.3,
-                          ), */
                         SizedBox(
                           height: 24,
                         ),
                         TextField(
+                          cursorColor: Color(0xffFF8822),
                           decoration: InputDecoration(
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffFF8822)),
@@ -189,86 +195,153 @@ class _OrderInfoState extends State<OrderInfo> {
                       ],
                     ),
                   ),
-                  Container(
-                    height:
-                        deviceHeigth - 197 + MediaQuery.of(context).padding.top,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: listOrdersByDay.length,
-                      itemBuilder: (_, int index) {
-                        print('$deviceHeigth');
-                        if (listOrdersByDay.length > 0) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 24,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  'Em 23/10 você vendeu',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  ),
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: listOrdersByDay.listProdutos.length,
+                    itemBuilder: (_, int index) {
+                      print('$deviceHeigth');
+                      String produto =
+                          listOrdersByDay.listProdutos.keys.elementAt(index);
+                      List<ProdutoModel> infoOrder =
+                          listOrdersByDay.listProdutos.values.elementAt(index);
+                      print(produto);
+                      print(infoOrder);
+                      if (listOrdersByDay.listProdutos.length > 0) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 23,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                '$produto',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              /* SizedBox(
-                              height: 24,
-                            ), */
-                              ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: listOrdersByDay[index].length,
-                                  itemBuilder: (_, int indexOrder) {
-                                    Order order =
-                                        listOrdersByDay[index][indexOrder];
-                                    while (indexOrder <
-                                        listOrdersByDay[index].length - 1) {
-                                      return Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 24,
-                                          ),
-                                          OrderWidget(
-                                            order: order,
-                                          ),
-                                          SizedBox(
-                                            height: 24,
-                                          ),
-                                          Divider(),
-                                        ],
-                                      );
-                                    }
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: infoOrder?.length,
+                                itemBuilder: (_, int indexOrder) {
+                                  ProdutoModel order = infoOrder[indexOrder];
+                                  ProdutoController produtoController =
+                                      ProdutoController();
+                                  produtoController.setOrderInfoModel(order);
+                                  while (indexOrder < infoOrder.length - 1) {
                                     return Column(
                                       children: [
-                                        SizedBox(
-                                          height: 24,
+                                        OrderInfoWidgetButton(
+                                          carrinhoController:
+                                              carrinhoController,
+                                          produtoController: produtoController,
                                         ),
-                                        OrderWidget(
-                                          order: order,
-                                        ),
                                         SizedBox(
-                                          height: 24,
+                                          height: 8,
                                         ),
                                       ],
                                     );
-                                  }),
-                            ],
-                          );
-                        }
-                        return Container(
-                          height: 0,
-                          width: 0,
+                                  }
+                                  return Column(
+                                    children: [
+                                      OrderInfoWidgetButton(
+                                        carrinhoController: carrinhoController,
+                                        produtoController: produtoController,
+                                      ),
+                                      SizedBox(
+                                        height: 24,
+                                      ),
+                                      Divider(),
+                                    ],
+                                  );
+                                }),
+                          ],
                         );
-                      },
-                    ),
+                      }
+                      return Container(
+                        height: 0,
+                        width: 0,
+                      );
+                    },
                   ),
                 ],
               ),
             )
           ],
         ),
+      ),
+      bottomNavigationBar: Observer(
+        builder: (_) {
+          return Row(
+            children: [
+              if (carrinhoController.productSelected)
+                Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[600],
+                        offset: Offset(1, 0),
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ),
+                    ],
+                    color: Color(0xFFFF8822),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  height: 68,
+                  width: MediaQuery.of(context).size.width,
+                  child: Observer(builder: (_) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Total: R\$ ${carrinhoController.totalCarrinho.toStringAsFixed(2).replaceAll('.', ',')}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                        TextButton(
+                          child: Row(
+                            children: [
+                              Text(
+                                'Avançar',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.white,
+                                size: 15,
+                              ),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/selectCustumers');
+                          },
+                        ),
+                      ],
+                    );
+                  }),
+                ),
+            ],
+          );
+        },
       ),
     );
   }

@@ -55,6 +55,12 @@ flutter:
     - lib/assets/appetit_logo.png
     - lib/assets/ic_filter_mono.png
     - lib/assets/avatar.png
+    - lib/assets/cuzcus_simples.png
+    - lib/assets/cuzcus_completo.png
+    - lib/assets/lingua_de_sogra.png
+    - lib/assets/misto_quente.png
+    - lib/assets/pao_caseiro_completo.png
+    - lib/assets/pao_caseiro.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

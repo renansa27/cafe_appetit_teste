@@ -17,18 +17,33 @@ mixin _$ProdutoController on _ProdutoControllerBase, Store {
               name: '_ProdutoControllerBase.totalCompra'))
           .value;
 
-  final _$produtoAtom = Atom(name: '_ProdutoControllerBase.produto');
+  final _$produtoModelAtom = Atom(name: '_ProdutoControllerBase.produtoModel');
 
   @override
-  ProdutoModel get produto {
-    _$produtoAtom.reportRead();
-    return super.produto;
+  ProdutoModel get produtoModel {
+    _$produtoModelAtom.reportRead();
+    return super.produtoModel;
   }
 
   @override
-  set produto(ProdutoModel value) {
-    _$produtoAtom.reportWrite(value, super.produto, () {
-      super.produto = value;
+  set produtoModel(ProdutoModel value) {
+    _$produtoModelAtom.reportWrite(value, super.produtoModel, () {
+      super.produtoModel = value;
+    });
+  }
+
+  final _$idAtom = Atom(name: '_ProdutoControllerBase.id');
+
+  @override
+  int get id {
+    _$idAtom.reportRead();
+    return super.id;
+  }
+
+  @override
+  set id(int value) {
+    _$idAtom.reportWrite(value, super.id, () {
+      super.id = value;
     });
   }
 
@@ -48,15 +63,53 @@ mixin _$ProdutoController on _ProdutoControllerBase, Store {
     });
   }
 
+  final _$selectedProdutcAtom =
+      Atom(name: '_ProdutoControllerBase.selectedProdutc');
+
+  @override
+  bool get selectedProdutc {
+    _$selectedProdutcAtom.reportRead();
+    return super.selectedProdutc;
+  }
+
+  @override
+  set selectedProdutc(bool value) {
+    _$selectedProdutcAtom.reportWrite(value, super.selectedProdutc, () {
+      super.selectedProdutc = value;
+    });
+  }
+
   final _$_ProdutoControllerBaseActionController =
       ActionController(name: '_ProdutoControllerBase');
 
   @override
-  dynamic setProduto(ProdutoModel produto) {
+  dynamic changeSelectedProdutc() {
     final _$actionInfo = _$_ProdutoControllerBaseActionController.startAction(
-        name: '_ProdutoControllerBase.setProduto');
+        name: '_ProdutoControllerBase.changeSelectedProdutc');
     try {
-      return super.setProduto(produto);
+      return super.changeSelectedProdutc();
+    } finally {
+      _$_ProdutoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setOrderInfoModel(ProdutoModel produtoModel) {
+    final _$actionInfo = _$_ProdutoControllerBaseActionController.startAction(
+        name: '_ProdutoControllerBase.setOrderInfoModel');
+    try {
+      return super.setOrderInfoModel(produtoModel);
+    } finally {
+      _$_ProdutoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setId(dynamic index) {
+    final _$actionInfo = _$_ProdutoControllerBaseActionController.startAction(
+        name: '_ProdutoControllerBase.setId');
+    try {
+      return super.setId(index);
     } finally {
       _$_ProdutoControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -87,8 +140,10 @@ mixin _$ProdutoController on _ProdutoControllerBase, Store {
   @override
   String toString() {
     return '''
-produto: ${produto},
+produtoModel: ${produtoModel},
+id: ${id},
 quantidadeCliente: ${quantidadeCliente},
+selectedProdutc: ${selectedProdutc},
 totalCompra: ${totalCompra}
     ''';
   }
