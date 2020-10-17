@@ -219,7 +219,7 @@ class _OrderInfoState extends State<OrderInfo> {
                               child: Text(
                                 '$produto',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),

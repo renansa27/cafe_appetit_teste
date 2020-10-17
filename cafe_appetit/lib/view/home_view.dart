@@ -6,7 +6,7 @@ import 'package:cafe_appetit/model/order_model.dart';
 import 'package:cafe_appetit/model/produto_model.dart';
 import 'package:flutter/material.dart';
 
-import 'order_widget.dart';
+import 'widgets/order_widget.dart';
 
 class Home extends StatelessWidget {
   final ScrollController scrollController = ScrollController();
@@ -101,7 +101,7 @@ class Home extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                    padding: EdgeInsets.only(left: 16, right: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -17,7 +17,7 @@ class OrderInfoWidgetButton extends StatelessWidget {
         return Container(
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: produtoController.selectedProdutc
+            color: produtoController.selectedProduct
                 ? Color(0xffFF8822)
                 : Colors.white,
             borderRadius: BorderRadius.circular(4.0),
@@ -52,7 +52,7 @@ class OrderInfoWidgetButton extends StatelessWidget {
                             Text(
                               produtoController.produtoModel.produtoName,
                               style: TextStyle(
-                                color: produtoController.selectedProdutc
+                                color: produtoController.selectedProduct
                                     ? Colors.white
                                     : Colors.black87,
                                 fontSize: 16,
@@ -72,7 +72,7 @@ class OrderInfoWidgetButton extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: produtoController.selectedProdutc
+                                  color: produtoController.selectedProduct
                                       ? Colors.white
                                       : Colors.black54,
                                 ),
@@ -87,7 +87,7 @@ class OrderInfoWidgetButton extends StatelessWidget {
               Text(
                 'R\$ ${((produtoController.produtoModel.price).toStringAsFixed(2)).replaceAll('.', ',')}',
                 style: TextStyle(
-                  color: produtoController.selectedProdutc
+                  color: produtoController.selectedProduct
                       ? Colors.white
                       : Colors.black87,
                   fontSize: 16,

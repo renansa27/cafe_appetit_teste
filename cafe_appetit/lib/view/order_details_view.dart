@@ -195,50 +195,56 @@ class OrderDetails extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          IconButton(
-                              icon: Icon(
-                                Icons.remove,
-                                color: produtoController.quantidadeCliente == 1
-                                    ? null
-                                    : Color(0xffFF8822),
-                              ),
-                              onPressed: produtoController.quantidadeCliente ==
-                                      1
-                                  ? null
-                                  : () {
-                                      produtoController.decrementQtdCliente();
-                                      carrinhoController.removerTotal(
-                                          produtoController.produtoModel.price);
-                                    }),
-                          SizedBox(
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.35,
+                        child: Row(
+                          children: [
+                            IconButton(
+                                icon: Icon(
+                                  Icons.remove,
+                                  color:
+                                      produtoController.quantidadeCliente == 1
+                                          ? null
+                                          : Color(0xffFF8822),
+                                ),
+                                onPressed:
+                                    produtoController.quantidadeCliente == 1
+                                        ? null
+                                        : () {
+                                            produtoController
+                                                .decrementQtdCliente();
+                                            carrinhoController.removerTotal(
+                                                produtoController
+                                                    .produtoModel.price);
+                                          }),
+                            /* SizedBox(
                             width: 20,
-                          ),
-                          Text('${produtoController.quantidadeCliente}'),
-                          SizedBox(
+                          ), */
+                            Text('${produtoController.quantidadeCliente}'),
+                            /* SizedBox(
                             width: 20,
-                          ),
-                          IconButton(
-                              icon: Icon(
-                                Icons.add,
-                                color: Color(0xffFF8822),
-                              ),
-                              onPressed: () {
-                                produtoController.incrementQtdCliente();
-                              }),
-                        ],
+                          ), */
+                            IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Color(0xffFF8822),
+                                ),
+                                onPressed: () {
+                                  produtoController.incrementQtdCliente();
+                                }),
+                          ],
+                        ),
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width / 2,
+                        width: MediaQuery.of(context).size.width * 0.5,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Color(0xffFF8822),
                         ),
                         child: FlatButton(
                           onPressed: () {
-                            if (!produtoController.selectedProdutc) {
-                              produtoController.changeSelectedProdutc();
+                            if (!produtoController.selectedProduct) {
+                              produtoController.changeSelectedProduct();
                             }
                             if (!carrinhoController.productSelected) {
                               carrinhoController.setSelected();
@@ -250,7 +256,6 @@ class OrderDetails extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.symmetric(
                               vertical: 13,
-                              horizontal: 16,
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

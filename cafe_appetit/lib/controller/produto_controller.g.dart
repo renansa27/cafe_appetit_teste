@@ -63,19 +63,19 @@ mixin _$ProdutoController on _ProdutoControllerBase, Store {
     });
   }
 
-  final _$selectedProdutcAtom =
-      Atom(name: '_ProdutoControllerBase.selectedProdutc');
+  final _$selectedProductAtom =
+      Atom(name: '_ProdutoControllerBase.selectedProduct');
 
   @override
-  bool get selectedProdutc {
-    _$selectedProdutcAtom.reportRead();
-    return super.selectedProdutc;
+  bool get selectedProduct {
+    _$selectedProductAtom.reportRead();
+    return super.selectedProduct;
   }
 
   @override
-  set selectedProdutc(bool value) {
-    _$selectedProdutcAtom.reportWrite(value, super.selectedProdutc, () {
-      super.selectedProdutc = value;
+  set selectedProduct(bool value) {
+    _$selectedProductAtom.reportWrite(value, super.selectedProduct, () {
+      super.selectedProduct = value;
     });
   }
 
@@ -83,11 +83,11 @@ mixin _$ProdutoController on _ProdutoControllerBase, Store {
       ActionController(name: '_ProdutoControllerBase');
 
   @override
-  dynamic changeSelectedProdutc() {
+  dynamic changeSelectedProduct() {
     final _$actionInfo = _$_ProdutoControllerBaseActionController.startAction(
-        name: '_ProdutoControllerBase.changeSelectedProdutc');
+        name: '_ProdutoControllerBase.changeSelectedProduct');
     try {
-      return super.changeSelectedProdutc();
+      return super.changeSelectedProduct();
     } finally {
       _$_ProdutoControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -143,7 +143,7 @@ mixin _$ProdutoController on _ProdutoControllerBase, Store {
 produtoModel: ${produtoModel},
 id: ${id},
 quantidadeCliente: ${quantidadeCliente},
-selectedProdutc: ${selectedProdutc},
+selectedProduct: ${selectedProduct},
 totalCompra: ${totalCompra}
     ''';
   }

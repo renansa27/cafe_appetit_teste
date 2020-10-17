@@ -1,5 +1,6 @@
 import 'package:cafe_appetit/service/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../main.dart';
 
@@ -59,7 +60,7 @@ class _LoginState extends State<Login> {
                     ),
                     Container(
                       child: Text(
-                        'Nós sabemos a importância de estar  sempre de barriga cheia e o quanto isso pode ajudar no seu dia.',
+                        'Nós sabemos a importância de estar sempre de barriga cheia e o quanto isso pode ajudar no seu dia.',
                         style: TextStyle(color: Colors.black54, fontSize: 16),
                         textAlign: TextAlign.center,
                       ),
@@ -81,8 +82,20 @@ class _LoginState extends State<Login> {
                               }
                               return null;
                             },
+                            onTap: () {
+                              loginController.setLoginFocada();
+                            },
+                            onFieldSubmitted: (value) => {
+                              loginController.setLoginFocada(),
+                            },
                             decoration: InputDecoration(
                               hintText: "Insira o seu e-mail aqui",
+                              labelText: loginController.showLabelLogin
+                                  ? "Email"
+                                  : null,
+                              labelStyle: TextStyle(
+                                decorationColor: Color(0x00ffaabb),
+                              ),
                               hintStyle: TextStyle(
                                 color: Colors.black54,
                                 fontSize: 16.0,
@@ -104,22 +117,26 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             onChanged: (value) => {
-                              userController.setFormEmail(value),
-                              //loginController.setLogin(value),
-                              //loginControllerField.text = value,
+                              loginController.setLogin(value),
                             },
                           ),
                           SizedBox(
                             height: 24.0,
                           ),
                           TextFormField(
-                            //controller: senhaControllerField,
+                            //controller: senhaController,
                             style: TextStyle(color: Colors.black),
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Digite sua senha';
                               }
                               return null;
+                            },
+                            onTap: () {
+                              loginController.setSenhaFocada();
+                            },
+                            onFieldSubmitted: (value) => {
+                              loginController.setSenhaFocada(),
                             },
                             decoration: InputDecoration(
                               suffixIcon: IconButton(
@@ -134,12 +151,10 @@ class _LoginState extends State<Login> {
                                         color: Color(0xffFF8822),
                                       ),
                               ),
-                              /* labelText: senhaControllerField.text == ""
-                                  ? null
-                                  : "Senha", */
-                              labelStyle: loginController.senha != ""
-                                  ? TextStyle(color: Color(0xffFF8822))
-                                  : TextStyle(color: Colors.black54),
+                              labelText: loginController.showLabelSenha
+                                  ? "Senha"
+                                  : null,
+                              //floatingLabelBehavior: FloatingLabelBehavior.auto,
                               hintText: "Insira a sua senha aqui",
                               hintStyle: TextStyle(
                                 color: Colors.black54,
@@ -164,8 +179,7 @@ class _LoginState extends State<Login> {
                             ),
                             obscureText: _isHidden,
                             onChanged: (value) => {
-                              userController.setFormPassword(value),
-                              //loginController.setSenha(value),
+                              loginController.setSenha(value),
                             },
                           ),
                           SizedBox(
@@ -195,65 +209,73 @@ class _LoginState extends State<Login> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100.0),
-        color: Color(0xffFF8822),
+        color:
+            loginController.btnLiberado ? Color(0xFFFF8822) : Color(0x77FF8822),
       ),
       child: Container(
-        child: FlatButton(
-          onPressed: () {
-            // If the form is valid, display a Snackbar.
-            if (_formKey.currentState.validate()) {
-              // Login user in app
-              _setLoading();
-              //Login admin@gmail.com
-              //Senha admin123
-              _auth.loginWithEmail().then(
-                    (val) => {
-                      _setLoading(),
-                      if (val == true)
-                        {
-                          Navigator.pushReplacementNamed(context, '/home'),
-                        }
-                      else
-                        {
-                          print(val.toString()),
-                        },
-                    },
-                  );
-            }
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (loading)
-                Row(
-                  children: [
-                    Text(
-                      "ENTRAR",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.0,
+        child: Observer(builder: (_) {
+          return FlatButton(
+            onPressed: loginController.btnLiberado
+                ? () {
+                    // If the form is valid, display a Snackbar.
+                    if (_formKey.currentState.validate()) {
+                      // Login user in app
+                      _setLoading();
+                      //Login admin@gmail.com
+                      //Senha admin123
+                      _auth.loginWithEmail().then(
+                            (val) => {
+                              _setLoading(),
+                              if (val == true)
+                                {
+                                  Navigator.pushReplacementNamed(
+                                      context, '/home'),
+                                }
+                              else
+                                {
+                                  print(
+                                    val.toString(),
+                                  ),
+                                },
+                            },
+                          );
+                    }
+                  }
+                : null,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (loading)
+                  Row(
+                    children: [
+                      Text(
+                        "ENTRAR",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14.0,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                    ),
-                  ],
-                ),
-              if (!loading)
-                Text(
-                  "ENTRAR",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14.0,
+                      SizedBox(
+                        width: 20,
+                      ),
+                      CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                      ),
+                    ],
                   ),
-                ),
-            ],
-          ),
-          color: Colors.transparent,
-        ),
+                if (!loading)
+                  Text(
+                    "ENTRAR",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.0,
+                    ),
+                  ),
+              ],
+            ),
+            color: Colors.transparent,
+          );
+        }),
       ),
     );
   }

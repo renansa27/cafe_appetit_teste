@@ -15,11 +15,11 @@ abstract class _ProdutoControllerBase with Store {
   int quantidadeCliente = 1;
 
   @observable
-  bool selectedProdutc = false;
+  bool selectedProduct = false;
 
   @action
-  changeSelectedProdutc() {
-    selectedProdutc = !selectedProdutc;
+  changeSelectedProduct() {
+    selectedProduct = !selectedProduct;
   }
 
   @action

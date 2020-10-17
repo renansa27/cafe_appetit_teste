@@ -10,6 +10,12 @@ abstract class _LoginControllerBase with Store {
   @observable
   String senha = "";
 
+  @observable
+  bool senhaFocada = false;
+
+  @observable
+  bool loginFocado = false;
+
   @action
   setLogin(String login) {
     this.login = login;
@@ -19,4 +25,23 @@ abstract class _LoginControllerBase with Store {
   setSenha(String senha) {
     this.senha = senha;
   }
+
+  @action
+  setLoginFocada() {
+    loginFocado = !loginFocado;
+  }
+
+  @action
+  setSenhaFocada() {
+    senhaFocada = !senhaFocada;
+  }
+
+  @computed
+  bool get btnLiberado => login != '' && senha != '' ? true : false;
+
+  @computed
+  bool get showLabelSenha => senhaFocada || senha != '' ? true : false;
+
+  @computed
+  bool get showLabelLogin => loginFocado || login != '' ? true : false;
 }

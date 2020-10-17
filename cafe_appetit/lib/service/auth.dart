@@ -12,8 +12,8 @@ class AuthService {
   Future loginWithEmail() async {
     try {
       var authResult = await _firebaseAuth.signInWithEmailAndPassword(
-        email: userController.formEmail,
-        password: userController.formPassword,
+        email: loginController.login,
+        password: loginController.senha,
       );
       //if (authResult.user.emailVerified) {
       await _populateCurrentUser(authResult.user);

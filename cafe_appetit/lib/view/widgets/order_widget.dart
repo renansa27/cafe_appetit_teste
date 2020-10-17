@@ -35,14 +35,14 @@ class OrderWidget extends StatelessWidget {
                       order.cliente.name,
                       style: TextStyle(
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
                       'R\$ ${((total).toStringAsFixed(2)).replaceAll('.', ',')}',
                       style: TextStyle(
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
