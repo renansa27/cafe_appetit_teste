@@ -83,9 +83,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final deviceHeigth = MediaQuery.of(context).size.height -
-        MediaQuery.of(context).padding.top -
-        AppBar().preferredSize.height;
     final deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
@@ -94,7 +91,7 @@ class Home extends StatelessWidget {
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        //physics: AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
             Container(
@@ -184,11 +181,9 @@ class Home extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    height: (deviceHeigth +
-                        MediaQuery.of(context).padding.top -
-                        230),
                     child: ListView.builder(
-                      controller: scrollController,
+                      //controller: scrollController,
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: listOrdersByDay.listOrder.length,
                       itemBuilder: (_, int index) {

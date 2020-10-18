@@ -34,64 +34,74 @@ class OrderInfoWidgetButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  ClipOval(
-                    child: Image.asset(produtoController.produtoModel.image),
-                  ),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Container(
-                    width: 184,
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              produtoController.produtoModel.produtoName,
-                              style: TextStyle(
-                                color: produtoController.selectedProduct
-                                    ? Colors.white
-                                    : Colors.black87,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        if (produtoController.produtoModel.optionDescription !=
-                            null)
+              Flexible(
+                flex: 8,
+                child: Row(
+                  children: [
+                    ClipOval(
+                      child: Image.asset(produtoController.produtoModel.image),
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      child: Column(
+                        children: [
                           Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                produtoController
-                                    .produtoModel.optionDescription,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: produtoController.selectedProduct
-                                      ? Colors.white
-                                      : Colors.black54,
+                              Expanded(
+                                child: Text(
+                                  produtoController.produtoModel.produtoName,
+                                  style: TextStyle(
+                                    color: produtoController.selectedProduct
+                                        ? Colors.white
+                                        : Colors.black87,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
                           ),
-                      ],
+                          if (produtoController
+                                  .produtoModel.optionDescription !=
+                              null)
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  produtoController
+                                      .produtoModel.optionDescription,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: produtoController.selectedProduct
+                                        ? Colors.white
+                                        : Colors.black54,
+                                  ),
+                                ),
+                              ],
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Text(
-                'R\$ ${((produtoController.produtoModel.price).toStringAsFixed(2)).replaceAll('.', ',')}',
-                style: TextStyle(
-                  color: produtoController.selectedProduct
-                      ? Colors.white
-                      : Colors.black87,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+              Flexible(
+                flex: 2,
+                child: Text(
+                  'R\$ ${((produtoController.produtoModel.price).toStringAsFixed(2)).replaceAll('.', ',')}',
+                  style: TextStyle(
+                    color: produtoController.selectedProduct
+                        ? Colors.white
+                        : Colors.black87,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ],

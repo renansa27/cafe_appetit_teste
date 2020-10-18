@@ -67,6 +67,7 @@ flutter:
     - lib/assets/JustinePhoto.png
     - lib/assets/BairamPhoto.png
     - lib/assets/FrootanPhoto.png
+    - lib/assets/undraw_chef_lbjx.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

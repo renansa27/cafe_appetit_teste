@@ -44,7 +44,6 @@ class _LoginState extends State<Login> {
               children: <Widget>[
                 Image.asset(
                   'lib/assets/appetit_logo.png',
-                  //width: 150,
                 ),
                 Column(
                   children: [

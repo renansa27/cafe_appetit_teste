@@ -69,4 +69,7 @@ abstract class _CalendarControllerBase with Store {
       this.selectedDate.month.toString() +
       '/' +
       this.selectedDate.year.toString();
+
+  @computed
+  bool get isShowingDatePicker => showDatePicker;
 }

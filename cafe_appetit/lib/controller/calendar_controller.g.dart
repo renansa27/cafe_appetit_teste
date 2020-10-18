@@ -16,6 +16,13 @@ mixin _$CalendarController on _CalendarControllerBase, Store {
       (_$dateFormatedComputed ??= Computed<String>(() => super.dateFormated,
               name: '_CalendarControllerBase.dateFormated'))
           .value;
+  Computed<bool> _$isShowingDatePickerComputed;
+
+  @override
+  bool get isShowingDatePicker => (_$isShowingDatePickerComputed ??=
+          Computed<bool>(() => super.isShowingDatePicker,
+              name: '_CalendarControllerBase.isShowingDatePicker'))
+      .value;
 
   final _$isConfirmedDateAtom =
       Atom(name: '_CalendarControllerBase.isConfirmedDate');
@@ -214,7 +221,8 @@ day: ${day},
 weekDay: ${weekDay},
 month: ${month},
 year: ${year},
-dateFormated: ${dateFormated}
+dateFormated: ${dateFormated},
+isShowingDatePicker: ${isShowingDatePicker}
     ''';
   }
 }

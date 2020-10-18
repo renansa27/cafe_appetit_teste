@@ -12,7 +12,6 @@ abstract class _OrdersListControllerBase with Store {
 
   @action
   addTotalByDay(double price) {
-    //print('Adcionado valor: $price');
     totalByDay.add(price);
   }
 

@@ -137,34 +137,35 @@ class OrderDetails extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Observer(builder: (_) {
-                      return TextFormField(
-                        style: TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                          hintText: "Deseja adicionar alguma obs.?",
-                          hintStyle: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 16.0,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide: BorderSide(color: Colors.black38),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                            borderSide: BorderSide(color: Color(0xffFF8822)),
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xffc75b20),
-                            ),
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
+                    child: TextFormField(
+                      style: TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        hintText: "Deseja adicionar alguma obs.?",
+                        hintStyle: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 16.0,
                         ),
-                        onChanged: (value) {},
-                      );
-                    }),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                          borderSide: BorderSide(color: Colors.black38),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                          borderSide: BorderSide(color: Color(0xffFF8822)),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xffc75b20),
+                          ),
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                      ),
+                      onChanged: (value) {},
+                    ),
                   ),
+                  SizedBox(
+                    height: 30,
+                  )
                 ],
               ),
             ),
@@ -195,9 +196,10 @@ class OrderDetails extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.35,
+                      Flexible(
+                        flex: 4,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             IconButton(
                                 icon: Icon(
@@ -217,13 +219,7 @@ class OrderDetails extends StatelessWidget {
                                                 produtoController
                                                     .produtoModel.price);
                                           }),
-                            /* SizedBox(
-                            width: 20,
-                          ), */
                             Text('${produtoController.quantidadeCliente}'),
-                            /* SizedBox(
-                            width: 20,
-                          ), */
                             IconButton(
                                 icon: Icon(
                                   Icons.add,
@@ -235,52 +231,56 @@ class OrderDetails extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Color(0xffFF8822),
-                        ),
-                        child: FlatButton(
-                          onPressed: () {
-                            if (!produtoController.selectedProduct) {
-                              produtoController.changeSelectedProduct();
-                            }
-                            if (!carrinhoController.productSelected) {
-                              carrinhoController.setSelected();
-                            }
-                            carrinhoController
-                                .addTotal(produtoController.totalCompra);
-                            Navigator.pop(context);
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 13,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Adicionar',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                      Flexible(
+                        flex: 6,
+                        child: Container(
+                          /* width: MediaQuery.of(context).size.width * 0.5, */
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Color(0xffFF8822),
+                          ),
+                          child: FlatButton(
+                            onPressed: () {
+                              if (!produtoController.selectedProduct) {
+                                produtoController.changeSelectedProduct();
+                              }
+                              if (!carrinhoController.productSelected) {
+                                carrinhoController.setSelected();
+                              }
+                              carrinhoController
+                                  .addTotal(produtoController.totalCompra);
+                              Navigator.pop(context);
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 13,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Adicionar',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'R\$ ${produtoController.totalCompra.toStringAsFixed(2)}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                                  Text(
+                                    'R\$ ${produtoController.totalCompra.toStringAsFixed(2)}',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

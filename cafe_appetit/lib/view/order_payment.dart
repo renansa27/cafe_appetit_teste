@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'widgets/payment_options_widget.dart';
 
-class AskPayment extends StatelessWidget {
+class OrderPayment extends StatelessWidget {
   final CalendarController calendarController = CalendarController();
   final OptionSelectedController optionSelectedController =
       OptionSelectedController();
@@ -218,11 +218,11 @@ class AskPayment extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //Formulário responsável pela data que será selecionada pelo usuário.
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Observer(builder: (_) {
                       return TextFormField(
-                        key: Key('formTextField'),
                         controller: calendarController.isConfirmedDate
                             ? TextEditingController(
                                 text: calendarController.dateFormated)
@@ -234,15 +234,19 @@ class AskPayment extends StatelessWidget {
                           }
                           return null;
                         },
+                        //Bloqueia a escrita do usuário, pois ele terá que escolher uma data no calendário.
                         readOnly: true,
+                        //Altera o valor da variável showDatePicker no calendarController, fazendo com que o Widget do calendário apareça.
                         onTap: () {
                           calendarController.setShowDatePicker();
                         },
-                        onFieldSubmitted: (value) {
-                          print(value);
-                        },
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.today),
+                          prefixIcon: Icon(
+                            Icons.today,
+                            color: calendarController.isShowingDatePicker
+                                ? Color(0xffff8822)
+                                : Colors.black38,
+                          ),
                           suffixIcon: Icon(
                             Icons.arrow_forward_ios,
                             size: 15,
@@ -253,7 +257,9 @@ class AskPayment extends StatelessWidget {
                               ? "Data"
                               : "Selecione uma data",
                           labelStyle: TextStyle(
-                            decorationColor: Color(0x00ffaabb),
+                            color: calendarController.isShowingDatePicker
+                                ? Color(0xffff8822)
+                                : Colors.black38,
                           ),
                           hintStyle: TextStyle(
                             color: Colors.black54,
@@ -265,7 +271,10 @@ class AskPayment extends StatelessWidget {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
-                            borderSide: BorderSide(color: Color(0xffFF8822)),
+                            borderSide: BorderSide(
+                                color: calendarController.isShowingDatePicker
+                                    ? Color(0xffFF8822)
+                                    : Colors.black38),
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -281,6 +290,7 @@ class AskPayment extends StatelessWidget {
                   SizedBox(
                     height: 50,
                   ),
+                  //Botão Finalizar Pedido e sua estilização.
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Observer(builder: (_) {
@@ -297,12 +307,17 @@ class AskPayment extends StatelessWidget {
                         ),
                         child: Container(
                           child: FlatButton(
-                            onPressed: () {},
+                            onPressed: calendarController.isConfirmedDate &&
+                                    optionSelectedController.selectedValue !=
+                                        null
+                                ? () =>
+                                    Navigator.pushNamed(context, '/orderDone')
+                                : null,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "ENTRAR",
+                                  "FINALIZAR PEDIDO",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 14.0,
@@ -322,15 +337,27 @@ class AskPayment extends StatelessWidget {
           ),
           Positioned(
             left: 16,
-            //top: 20,
+            top: 10,
+            //O Observer é responsável pela gerência de estado no Widget, quando o valor de uma variável observavel
+            //alterar ele altomaticamente faz o rebuild, atualizando o valor na tela.
             child: Observer(builder: (_) {
               return Column(
                 children: [
                   if (calendarController.showDatePicker)
                     Container(
-                      color: Colors.white,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.0),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[300],
+                            offset: Offset(0, 0),
+                            blurRadius: 5.0,
+                            spreadRadius: 2.0,
+                          ),
+                        ],
+                      ),
                       width: MediaQuery.of(context).size.width - 32,
-                      height: 453,
                       child: Observer(
                         builder: (_) {
                           return Padding(
@@ -340,6 +367,7 @@ class AskPayment extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
+                                    //Widget que contém o dia que o usuário selecionou.
                                     Text(
                                       '${getDayString(calendarController.weekDay)}, ${calendarController.day} de ${getMonthString(calendarController.month)}',
                                       style: TextStyle(
@@ -352,14 +380,17 @@ class AskPayment extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
+                                    //Dropdown responsável pela seleção do ano no calendário.
                                     DropdownButton<String>(
                                       iconEnabledColor: Color(0xffff8822),
                                       iconDisabledColor: Color(0xffff8822),
+                                      //Esse Container vazio é para retirar o underline.
                                       underline: Container(
                                         height: 0,
                                         width: 0,
                                       ),
                                       value: calendarController.year,
+                                      //Lista com os anos possíveis para seleção.
                                       items: <String>[
                                         '2020',
                                         '2021',
@@ -368,8 +399,8 @@ class AskPayment extends StatelessWidget {
                                       ].map((String value) {
                                         return DropdownMenuItem<String>(
                                           value: value,
+                                          //Widget de retorno após seleção.
                                           child: SizedBox(
-                                            height: 17,
                                             child: Text(
                                               value,
                                               style: TextStyle(
@@ -379,26 +410,30 @@ class AskPayment extends StatelessWidget {
                                           ),
                                         );
                                       }).toList(),
+                                      //Seta o valor do ano no calendário, alterando o ano também no calendário.
                                       onChanged: (value) {
                                         calendarController.setYear(value);
-                                        print(calendarController.year);
                                       },
                                     ),
                                   ],
                                 ),
                                 Container(
-                                  height: 285,
                                   width: MediaQuery.of(context).size.width,
+                                  //Apesar do MonthPicker está depreciado, achei que melhor se encaixava com a UI proposta, então resolvi utilizar.
                                   child: MonthPicker(
-                                    lastDate: DateTime.parse('2023-12-31'),
                                     onChanged: (value) {
-                                      //print(value);
+                                      //Seta o dia selecionado no Picker para o controller.
                                       calendarController.setSelectedDate(value);
                                     },
+                                    //Altera o valor da variável responsável pelo dia selecionado.
                                     selectedDate:
                                         calendarController.selectedDate,
+                                    //A primeira data permitida para seleção no calendário.
                                     firstDate: DateTime.parse('2020-01-01'),
+                                    //A última data permitida para seleção no calendário.
+                                    lastDate: DateTime.parse('2023-12-31'),
                                   ),
+                                  //O novo Widget recomendado pelo Flutter Team para seleção de datas.
                                   /* child: CalendarDatePicker(
                                     initialDate: calendarController.selectedDate,
                                     lastDate: DateTime.parse('2023-12-31'),
@@ -418,6 +453,7 @@ class AskPayment extends StatelessWidget {
                                 SizedBox(
                                   height: 26,
                                 ),
+                                //Botão de Confirmar
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -437,10 +473,16 @@ class AskPayment extends StatelessWidget {
                                             color: Colors.white,
                                           ),
                                         ),
+                                        //Altera o valor da variável setShowDataPicker, responsável pelo controle do calendário aparecer ou não na tela.
+                                        //Altera o valor da variável setConfirmedDate, que controla se o usuário clicou ou não para confirmar a data selecionada.
                                         onPressed: () {
                                           calendarController
                                               .setShowDatePicker();
-                                          calendarController.setConfirmedDate();
+                                          if (!calendarController
+                                              .isConfirmedDate) {
+                                            calendarController
+                                                .setConfirmedDate();
+                                          }
                                         },
                                       ),
                                     ),

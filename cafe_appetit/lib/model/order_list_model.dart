@@ -14,7 +14,6 @@ class OrderListModel {
       }
       listTotal.add(sum);
     }
-    //print(listTotal);
     return listTotal;
   }
 }

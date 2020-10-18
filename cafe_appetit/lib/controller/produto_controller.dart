@@ -17,6 +17,14 @@ abstract class _ProdutoControllerBase with Store {
   @observable
   bool selectedProduct = false;
 
+  @observable
+  String observacoes = '';
+
+  @action
+  void setObervacoes(String observacoes) {
+    this.observacoes = observacoes;
+  }
+
   @action
   changeSelectedProduct() {
     selectedProduct = !selectedProduct;

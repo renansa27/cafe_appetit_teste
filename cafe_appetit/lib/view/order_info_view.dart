@@ -70,9 +70,6 @@ class _OrderInfoState extends State<OrderInfo> {
         ],
       },
     );
-    final deviceHeigth = MediaQuery.of(context).size.height -
-        MediaQuery.of(context).padding.top -
-        AppBar().preferredSize.height;
     final deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
@@ -85,7 +82,8 @@ class _OrderInfoState extends State<OrderInfo> {
             color: Color(0xffFF8822),
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/home', ((Route<dynamic> route) => false));
           },
         ),
       ),
@@ -191,6 +189,10 @@ class _OrderInfoState extends State<OrderInfo> {
                             ),
                             focusColor: Color(0xffFF8822),
                           ),
+                          onTap: () {},
+                          onChanged: (value) {
+                            print(value);
+                          },
                         ),
                       ],
                     ),
@@ -200,13 +202,10 @@ class _OrderInfoState extends State<OrderInfo> {
                     shrinkWrap: true,
                     itemCount: listOrdersByDay.listProdutos.length,
                     itemBuilder: (_, int index) {
-                      print('$deviceHeigth');
                       String produto =
                           listOrdersByDay.listProdutos.keys.elementAt(index);
                       List<ProdutoModel> infoOrder =
                           listOrdersByDay.listProdutos.values.elementAt(index);
-                      print(produto);
-                      print(infoOrder);
                       if (listOrdersByDay.listProdutos.length > 0) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -298,46 +297,44 @@ class _OrderInfoState extends State<OrderInfo> {
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   height: 68,
                   width: MediaQuery.of(context).size.width,
-                  child: Observer(builder: (_) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Total: R\$ ${carrinhoController.totalCarrinho.toStringAsFixed(2).replaceAll('.', ',')}',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total: R\$ ${carrinhoController.totalCarrinho.toStringAsFixed(2).replaceAll('.', ',')}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
                         ),
-                        TextButton(
-                          child: Row(
-                            children: [
-                              Text(
-                                'Avançar',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios,
+                      ),
+                      TextButton(
+                        child: Row(
+                          children: [
+                            Text(
+                              'Avançar',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
                                 color: Colors.white,
-                                size: 15,
                               ),
-                            ],
-                          ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/selectCustumers');
-                          },
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                          ],
                         ),
-                      ],
-                    );
-                  }),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/selectCustumers');
+                        },
+                      ),
+                    ],
+                  ),
                 ),
             ],
           );

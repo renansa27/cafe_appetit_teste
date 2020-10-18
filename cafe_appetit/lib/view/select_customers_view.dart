@@ -25,9 +25,6 @@ class SelectCustomers extends StatelessWidget {
         name: 'Bairam Frootan',
       ),
     ];
-    final deviceHeigth = MediaQuery.of(context).size.height -
-        MediaQuery.of(context).padding.top -
-        AppBar().preferredSize.height;
     final deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
@@ -173,9 +170,6 @@ class SelectCustomers extends StatelessWidget {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  /* SizedBox(
-                                    height: 16,
-                                  ), */
                                   SelectedCustumerWidget(
                                       selectCustumersController:
                                           selectCustumersController,
@@ -199,7 +193,7 @@ class SelectCustomers extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
+            /* Container(
               width: MediaQuery.of(context).size.width - 32,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -214,10 +208,19 @@ class SelectCustomers extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
+            ), */
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        backgroundColor: Color(0xffff8822),
+        onPressed: () {},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: Observer(builder: (_) {
         return Row(
           children: [
@@ -272,7 +275,7 @@ class SelectCustomers extends StatelessWidget {
                         ],
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/askPayment');
+                        Navigator.pushNamed(context, '/orderPayment');
                       },
                     ),
                   ],
