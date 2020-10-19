@@ -11,15 +11,15 @@ class OrderInfoWidgetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final produto = carrinhoController.lista[produtoController.produtoModel.id];
     //final OrderInfoModel order = ModalRoute.of(context).settings.arguments;
     return FlatButton(
       child: Observer(builder: (_) {
         return Container(
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: produtoController.selectedProduct
-                ? Color(0xffFF8822)
-                : Colors.white,
+            //color: produtoController.selectedProduct
+            color: produto.selectedProduct ? Color(0xffFF8822) : Colors.white,
             borderRadius: BorderRadius.circular(4.0),
             boxShadow: [
               BoxShadow(
@@ -39,7 +39,7 @@ class OrderInfoWidgetButton extends StatelessWidget {
                 child: Row(
                   children: [
                     ClipOval(
-                      child: Image.asset(produtoController.produtoModel.image),
+                      child: Image.asset(produto.produtoModel.image),
                     ),
                     SizedBox(
                       width: 16,
@@ -53,9 +53,9 @@ class OrderInfoWidgetButton extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Text(
-                                  produtoController.produtoModel.produtoName,
+                                  produto.produtoModel.produtoName,
                                   style: TextStyle(
-                                    color: produtoController.selectedProduct
+                                    color: produto.selectedProduct
                                         ? Colors.white
                                         : Colors.black87,
                                     fontSize: 16,
@@ -66,19 +66,16 @@ class OrderInfoWidgetButton extends StatelessWidget {
                               ),
                             ],
                           ),
-                          if (produtoController
-                                  .produtoModel.optionDescription !=
-                              null)
+                          if (produto.produtoModel.optionDescription != null)
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  produtoController
-                                      .produtoModel.optionDescription,
+                                  produto.produtoModel.optionDescription,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
-                                    color: produtoController.selectedProduct
+                                    color: produto.selectedProduct
                                         ? Colors.white
                                         : Colors.black54,
                                   ),
@@ -94,11 +91,10 @@ class OrderInfoWidgetButton extends StatelessWidget {
               Flexible(
                 flex: 2,
                 child: Text(
-                  'R\$ ${((produtoController.produtoModel.price).toStringAsFixed(2)).replaceAll('.', ',')}',
+                  'R\$ ${((produto.produtoModel.price).toStringAsFixed(2)).replaceAll('.', ',')}',
                   style: TextStyle(
-                    color: produtoController.selectedProduct
-                        ? Colors.white
-                        : Colors.black87,
+                    color:
+                        produto.selectedProduct ? Colors.white : Colors.black87,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),

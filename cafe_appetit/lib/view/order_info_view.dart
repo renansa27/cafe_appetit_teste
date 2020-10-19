@@ -1,21 +1,24 @@
-import 'package:cafe_appetit/controller/carrinho_controller.dart';
 import 'package:cafe_appetit/controller/produto_controller.dart';
 import 'package:cafe_appetit/model/produto_model.dart';
 import 'package:cafe_appetit/model/produtos_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
+import '../main.dart';
 import 'widgets/order_info_widget_button.dart';
 
-class OrderInfo extends StatefulWidget {
-  @override
-  _OrderInfoState createState() => _OrderInfoState();
-}
+class OrderInfo extends StatelessWidget {
+  bool verificaProdutoLista(List<ProdutoController> lista, produto) {
+    bool exist = false;
+    lista.forEach((element) {
+      if (produto.produtoName == element.produtoModel.produtoName) {
+        exist = true;
+      }
+    });
+    return exist;
+  }
 
-class _OrderInfoState extends State<OrderInfo> {
   @override
   Widget build(BuildContext context) {
-    final CarrinhoController carrinhoController = CarrinhoController();
     final ProdutosList listOrdersByDay = ProdutosList(
       listProdutos: {
         'Cuzcus': [
@@ -24,6 +27,7 @@ class _OrderInfoState extends State<OrderInfo> {
             image: 'lib/assets/cuzcus_simples.png',
             produtoName: 'Cuzcus simples',
             price: 2.25,
+            qnt: 0,
             optionDescription: 'milho ou arroz',
             options: {0: 'Cuscuz de milho', 1: 'Cuscuz de arroz'},
           ),
@@ -32,6 +36,7 @@ class _OrderInfoState extends State<OrderInfo> {
             image: 'lib/assets/cuzcus_completo.png',
             produtoName: 'Cuzcus completo',
             price: 3.25,
+            qnt: 0,
             optionDescription: 'milho ou arroz',
             options: {0: 'Cuscuz de milho', 1: 'Cuscuz de arroz'},
           ),
@@ -42,30 +47,35 @@ class _OrderInfoState extends State<OrderInfo> {
             image: 'lib/assets/pao_caseiro.png',
             produtoName: 'Pão Caseiro',
             price: 2.25,
+            qnt: 0,
           ),
           ProdutoModel(
             id: 3,
             image: 'lib/assets/pao_caseiro_completo.png',
             produtoName: 'Pão Caseiro completo',
             price: 3.25,
+            qnt: 0,
           ),
           ProdutoModel(
             id: 4,
             image: 'lib/assets/misto_quente.png',
             produtoName: 'Misto quente',
             price: 3.00,
+            qnt: 0,
           ),
           ProdutoModel(
             id: 5,
             image: 'lib/assets/lingua_de_sogra.png',
             produtoName: 'Lingua de sogra (pq.)',
             price: 2.00,
+            qnt: 0,
           ),
           ProdutoModel(
             id: 6,
             image: 'lib/assets/lingua_de_sogra.png',
             produtoName: 'Lingua de sogra (gr.)',
             price: 3.00,
+            qnt: 0,
           ),
         ],
       },
@@ -187,9 +197,9 @@ class _OrderInfoState extends State<OrderInfo> {
                                 0xffFF8822,
                               ),
                             ),
-                            focusColor: Color(0xffFF8822),
+                            //focusColor: Color(0xffFF8822),
                           ),
-                          onTap: () {},
+                          //onTap: () {},
                           onChanged: (value) {
                             print(value);
                           },
@@ -202,9 +212,9 @@ class _OrderInfoState extends State<OrderInfo> {
                     shrinkWrap: true,
                     itemCount: listOrdersByDay.listProdutos.length,
                     itemBuilder: (_, int index) {
-                      String produto =
+                      String categoriaProduto =
                           listOrdersByDay.listProdutos.keys.elementAt(index);
-                      List<ProdutoModel> infoOrder =
+                      List<ProdutoModel> produtos =
                           listOrdersByDay.listProdutos.values.elementAt(index);
                       if (listOrdersByDay.listProdutos.length > 0) {
                         return Column(
@@ -216,7 +226,7 @@ class _OrderInfoState extends State<OrderInfo> {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 16),
                               child: Text(
-                                '$produto',
+                                '$categoriaProduto',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -226,16 +236,32 @@ class _OrderInfoState extends State<OrderInfo> {
                             SizedBox(
                               height: 16,
                             ),
-                            ListView.builder(
+                            Observer(builder: (_) {
+                              return ListView.builder(
                                 physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
-                                itemCount: infoOrder?.length,
-                                itemBuilder: (_, int indexOrder) {
-                                  ProdutoModel order = infoOrder[indexOrder];
+                                itemCount: produtos?.length,
+                                itemBuilder: (_, int indexProduto) {
+                                  ProdutoModel produto = produtos[indexProduto];
                                   ProdutoController produtoController =
                                       ProdutoController();
-                                  produtoController.setOrderInfoModel(order);
-                                  while (indexOrder < infoOrder.length - 1) {
+                                  bool existOnList = verificaProdutoLista(
+                                      carrinhoController.lista, produto);
+                                  if (existOnList) {
+                                    carrinhoController.lista.forEach((element) {
+                                      if (element.produtoModel.produtoName ==
+                                          produto.produtoName) {
+                                        produtoController.setProdutoModel(
+                                            element.produtoModel);
+                                      }
+                                    });
+                                  } else {
+                                    produtoController = ProdutoController();
+                                    produtoController.setProdutoModel(produto);
+                                    carrinhoController
+                                        .addList(produtoController);
+                                  }
+                                  while (indexProduto < produtos.length - 1) {
                                     return Column(
                                       children: [
                                         OrderInfoWidgetButton(
@@ -261,7 +287,9 @@ class _OrderInfoState extends State<OrderInfo> {
                                       Divider(),
                                     ],
                                   );
-                                }),
+                                },
+                              );
+                            }),
                           ],
                         );
                       }
@@ -277,69 +305,72 @@ class _OrderInfoState extends State<OrderInfo> {
           ],
         ),
       ),
-      bottomNavigationBar: Observer(
-        builder: (_) {
-          return Row(
-            children: [
-              if (carrinhoController.productSelected)
-                Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey[600],
-                        offset: Offset(1, 0),
-                        blurRadius: 10.0,
-                        spreadRadius: 2.0,
-                      ),
-                    ],
-                    color: Color(0xFFFF8822),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  height: 68,
-                  width: MediaQuery.of(context).size.width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Total: R\$ ${carrinhoController.totalCarrinho.toStringAsFixed(2).replaceAll('.', ',')}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                      ),
-                      TextButton(
-                        child: Row(
-                          children: [
-                            Text(
-                              'Avançar',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: Colors.white,
-                              size: 15,
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/selectCustumers');
-                        },
-                      ),
-                    ],
-                  ),
+      bottomNavigationBar: Observer(builder: (_) {
+        return Row(
+          children: [
+            if (carrinhoController?.productSelected)
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey[600],
+                      offset: Offset(1, 0),
+                      blurRadius: 10.0,
+                      spreadRadius: 2.0,
+                    ),
+                  ],
+                  color: Color(0xFFFF8822),
                 ),
-            ],
-          );
-        },
-      ),
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                height: 68,
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      //'Total: R\$ ${carrinhoController.total.toStringAsFixed(2).replaceAll('.', ',')}',
+                      'Total: R\$ ${carrinhoController.valorTotal.toStringAsFixed(2).replaceAll('.', ',')}',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                    TextButton(
+                      child: Row(
+                        children: [
+                          Text(
+                            'Avançar',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.white,
+                            size: 15,
+                          ),
+                        ],
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/selectCustumers');
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            /* Container(
+                  height: 0,
+                  width: 0,
+                ), */
+          ],
+        );
+      }),
     );
   }
 }

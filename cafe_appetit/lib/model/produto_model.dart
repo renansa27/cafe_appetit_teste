@@ -5,7 +5,7 @@ class ProdutoModel {
   double price;
   String optionDescription;
   Map<int, String> options = {};
-  int qnt;
+  int qnt = 0;
   String note;
 
   ProdutoModel({
@@ -18,4 +18,8 @@ class ProdutoModel {
     this.qnt,
     this.note,
   });
+
+  double getTotal() {
+    return this.price * this.qnt;
+  }
 }

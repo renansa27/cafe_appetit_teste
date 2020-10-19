@@ -12,7 +12,7 @@ abstract class _ProdutoControllerBase with Store {
   int id;
 
   @observable
-  int quantidadeCliente = 1;
+  int quantidade = 1;
 
   @observable
   bool selectedProduct = false;
@@ -31,30 +31,39 @@ abstract class _ProdutoControllerBase with Store {
   }
 
   @action
-  setOrderInfoModel(ProdutoModel produtoModel) {
+  setProdutoModel(ProdutoModel produtoModel) {
     this.produtoModel = produtoModel;
   }
 
   @action
-  setId(index) {
-    this.id = index;
+  changeQntProdutoModel(int qnt) {
+    this.produtoModel.qnt = qnt;
   }
 
   @action
-  incrementQtdCliente() {
-    this.quantidadeCliente++;
+  setProdutoModelQuantidade(int quantidadeRecebida) {
+    this.produtoModel.qnt = quantidadeRecebida;
   }
 
   @action
-  decrementQtdCliente() {
-    if (this.quantidadeCliente > 1) {
-      this.quantidadeCliente--;
+  incrementQtd() {
+    this.quantidade++;
+  }
+
+  @action
+  decrementQtd() {
+    if (this.quantidade > 1) {
+      this.quantidade--;
     }
+  }
+
+  double calculaTotalByProductModel() {
+    return produtoModel.qnt * produtoModel.price;
   }
 
   @computed
   double get totalCompra =>
-      quantidadeCliente *
+      quantidade *
       double.parse(
         produtoModel.price.toStringAsFixed(2),
       );

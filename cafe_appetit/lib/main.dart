@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'controller/carrinho_controller.dart';
 import 'controller/orders_list.dart';
 import 'controller/user_controller.dart';
 import 'view/order_done.dart';
@@ -18,6 +19,7 @@ import 'view/select_customers_view.dart';
 final userController = UserController();
 final machineController = OrdersListController();
 final loginController = LoginController();
+CarrinhoController carrinhoController = CarrinhoController();
 
 Future<void> main() async {
   //Duas linhas necessárias para o funcinamento do Firebase

@@ -204,29 +204,23 @@ class OrderDetails extends StatelessWidget {
                             IconButton(
                                 icon: Icon(
                                   Icons.remove,
-                                  color:
-                                      produtoController.quantidadeCliente == 1
-                                          ? null
-                                          : Color(0xffFF8822),
+                                  color: produtoController.quantidade == 1
+                                      ? null
+                                      : Color(0xffFF8822),
                                 ),
-                                onPressed:
-                                    produtoController.quantidadeCliente == 1
-                                        ? null
-                                        : () {
-                                            produtoController
-                                                .decrementQtdCliente();
-                                            carrinhoController.removerTotal(
-                                                produtoController
-                                                    .produtoModel.price);
-                                          }),
-                            Text('${produtoController.quantidadeCliente}'),
+                                onPressed: produtoController.quantidade == 1
+                                    ? null
+                                    : () {
+                                        produtoController.decrementQtd();
+                                      }),
+                            Text('${produtoController.quantidade}'),
                             IconButton(
                                 icon: Icon(
                                   Icons.add,
                                   color: Color(0xffFF8822),
                                 ),
                                 onPressed: () {
-                                  produtoController.incrementQtdCliente();
+                                  produtoController.incrementQtd();
                                 }),
                           ],
                         ),
@@ -240,17 +234,6 @@ class OrderDetails extends StatelessWidget {
                             color: Color(0xffFF8822),
                           ),
                           child: FlatButton(
-                            onPressed: () {
-                              if (!produtoController.selectedProduct) {
-                                produtoController.changeSelectedProduct();
-                              }
-                              if (!carrinhoController.productSelected) {
-                                carrinhoController.setSelected();
-                              }
-                              carrinhoController
-                                  .addTotal(produtoController.totalCompra);
-                              Navigator.pop(context);
-                            },
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                 vertical: 13,
@@ -277,7 +260,20 @@ class OrderDetails extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                            ),
+                            ), //
+                            onPressed: () {
+                              produtoController.setProdutoModelQuantidade(
+                                  produtoController.quantidade);
+                              carrinhoController
+                                  .updateProdutoController(produtoController);
+                              if (!produtoController.selectedProduct) {
+                                produtoController.changeSelectedProduct();
+                              }
+                              if (!carrinhoController.productSelected) {
+                                carrinhoController.setSelected();
+                              }
+                              Navigator.pop(context);
+                            },
                           ),
                         ),
                       ),

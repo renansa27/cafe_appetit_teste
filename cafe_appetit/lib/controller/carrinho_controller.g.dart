@@ -9,16 +9,30 @@ part of 'carrinho_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$CarrinhoController on _CarrinhoControllerBase, Store {
+  Computed<double> _$valorTotalComputed;
+
+  @override
+  double get valorTotal =>
+      (_$valorTotalComputed ??= Computed<double>(() => super.valorTotal,
+              name: '_CarrinhoControllerBase.valorTotal'))
+          .value;
+  Computed<double> _$totalComputed;
+
+  @override
+  double get total => (_$totalComputed ??= Computed<double>(() => super.total,
+          name: '_CarrinhoControllerBase.total'))
+      .value;
+
   final _$listaAtom = Atom(name: '_CarrinhoControllerBase.lista');
 
   @override
-  ObservableList<ProdutoModel> get lista {
+  ObservableList<ProdutoController> get lista {
     _$listaAtom.reportRead();
     return super.lista;
   }
 
   @override
-  set lista(ObservableList<ProdutoModel> value) {
+  set lista(ObservableList<ProdutoController> value) {
     _$listaAtom.reportWrite(value, super.lista, () {
       super.lista = value;
     });
@@ -56,15 +70,52 @@ mixin _$CarrinhoController on _CarrinhoControllerBase, Store {
     });
   }
 
+  final _$somatorioAtom = Atom(name: '_CarrinhoControllerBase.somatorio');
+
+  @override
+  double get somatorio {
+    _$somatorioAtom.reportRead();
+    return super.somatorio;
+  }
+
+  @override
+  set somatorio(double value) {
+    _$somatorioAtom.reportWrite(value, super.somatorio, () {
+      super.somatorio = value;
+    });
+  }
+
   final _$_CarrinhoControllerBaseActionController =
       ActionController(name: '_CarrinhoControllerBase');
 
   @override
-  dynamic addProduto(ProdutoModel produto) {
+  dynamic updateProdutoController(ProdutoController produtoController) {
     final _$actionInfo = _$_CarrinhoControllerBaseActionController.startAction(
-        name: '_CarrinhoControllerBase.addProduto');
+        name: '_CarrinhoControllerBase.updateProdutoController');
     try {
-      return super.addProduto(produto);
+      return super.updateProdutoController(produtoController);
+    } finally {
+      _$_CarrinhoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic addList(ProdutoController produtoController) {
+    final _$actionInfo = _$_CarrinhoControllerBaseActionController.startAction(
+        name: '_CarrinhoControllerBase.addList');
+    try {
+      return super.addList(produtoController);
+    } finally {
+      _$_CarrinhoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void somatorioTotal() {
+    final _$actionInfo = _$_CarrinhoControllerBaseActionController.startAction(
+        name: '_CarrinhoControllerBase.somatorioTotal');
+    try {
+      return super.somatorioTotal();
     } finally {
       _$_CarrinhoControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -82,33 +133,14 @@ mixin _$CarrinhoController on _CarrinhoControllerBase, Store {
   }
 
   @override
-  dynamic addTotal(double valorAdd) {
-    final _$actionInfo = _$_CarrinhoControllerBaseActionController.startAction(
-        name: '_CarrinhoControllerBase.addTotal');
-    try {
-      return super.addTotal(valorAdd);
-    } finally {
-      _$_CarrinhoControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic removerTotal(double valorRemove) {
-    final _$actionInfo = _$_CarrinhoControllerBaseActionController.startAction(
-        name: '_CarrinhoControllerBase.removerTotal');
-    try {
-      return super.removerTotal(valorRemove);
-    } finally {
-      _$_CarrinhoControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 lista: ${lista},
 productSelected: ${productSelected},
-totalCarrinho: ${totalCarrinho}
+totalCarrinho: ${totalCarrinho},
+somatorio: ${somatorio},
+valorTotal: ${valorTotal},
+total: ${total}
     ''';
   }
 }

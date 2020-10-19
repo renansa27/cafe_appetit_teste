@@ -47,19 +47,18 @@ mixin _$ProdutoController on _ProdutoControllerBase, Store {
     });
   }
 
-  final _$quantidadeClienteAtom =
-      Atom(name: '_ProdutoControllerBase.quantidadeCliente');
+  final _$quantidadeAtom = Atom(name: '_ProdutoControllerBase.quantidade');
 
   @override
-  int get quantidadeCliente {
-    _$quantidadeClienteAtom.reportRead();
-    return super.quantidadeCliente;
+  int get quantidade {
+    _$quantidadeAtom.reportRead();
+    return super.quantidade;
   }
 
   @override
-  set quantidadeCliente(int value) {
-    _$quantidadeClienteAtom.reportWrite(value, super.quantidadeCliente, () {
-      super.quantidadeCliente = value;
+  set quantidade(int value) {
+    _$quantidadeAtom.reportWrite(value, super.quantidade, () {
+      super.quantidade = value;
     });
   }
 
@@ -79,8 +78,34 @@ mixin _$ProdutoController on _ProdutoControllerBase, Store {
     });
   }
 
+  final _$observacoesAtom = Atom(name: '_ProdutoControllerBase.observacoes');
+
+  @override
+  String get observacoes {
+    _$observacoesAtom.reportRead();
+    return super.observacoes;
+  }
+
+  @override
+  set observacoes(String value) {
+    _$observacoesAtom.reportWrite(value, super.observacoes, () {
+      super.observacoes = value;
+    });
+  }
+
   final _$_ProdutoControllerBaseActionController =
       ActionController(name: '_ProdutoControllerBase');
+
+  @override
+  void setObervacoes(String observacoes) {
+    final _$actionInfo = _$_ProdutoControllerBaseActionController.startAction(
+        name: '_ProdutoControllerBase.setObervacoes');
+    try {
+      return super.setObervacoes(observacoes);
+    } finally {
+      _$_ProdutoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic changeSelectedProduct() {
@@ -94,44 +119,55 @@ mixin _$ProdutoController on _ProdutoControllerBase, Store {
   }
 
   @override
-  dynamic setOrderInfoModel(ProdutoModel produtoModel) {
+  dynamic setProdutoModel(ProdutoModel produtoModel) {
     final _$actionInfo = _$_ProdutoControllerBaseActionController.startAction(
-        name: '_ProdutoControllerBase.setOrderInfoModel');
+        name: '_ProdutoControllerBase.setProdutoModel');
     try {
-      return super.setOrderInfoModel(produtoModel);
+      return super.setProdutoModel(produtoModel);
     } finally {
       _$_ProdutoControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setId(dynamic index) {
+  dynamic changeQntProdutoModel(int qnt) {
     final _$actionInfo = _$_ProdutoControllerBaseActionController.startAction(
-        name: '_ProdutoControllerBase.setId');
+        name: '_ProdutoControllerBase.changeQntProdutoModel');
     try {
-      return super.setId(index);
+      return super.changeQntProdutoModel(qnt);
     } finally {
       _$_ProdutoControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic incrementQtdCliente() {
+  dynamic setProdutoModelQuantidade(int quantidadeRecebida) {
     final _$actionInfo = _$_ProdutoControllerBaseActionController.startAction(
-        name: '_ProdutoControllerBase.incrementQtdCliente');
+        name: '_ProdutoControllerBase.setProdutoModelQuantidade');
     try {
-      return super.incrementQtdCliente();
+      return super.setProdutoModelQuantidade(quantidadeRecebida);
     } finally {
       _$_ProdutoControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic decrementQtdCliente() {
+  dynamic incrementQtd() {
     final _$actionInfo = _$_ProdutoControllerBaseActionController.startAction(
-        name: '_ProdutoControllerBase.decrementQtdCliente');
+        name: '_ProdutoControllerBase.incrementQtd');
     try {
-      return super.decrementQtdCliente();
+      return super.incrementQtd();
+    } finally {
+      _$_ProdutoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic decrementQtd() {
+    final _$actionInfo = _$_ProdutoControllerBaseActionController.startAction(
+        name: '_ProdutoControllerBase.decrementQtd');
+    try {
+      return super.decrementQtd();
     } finally {
       _$_ProdutoControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -142,8 +178,9 @@ mixin _$ProdutoController on _ProdutoControllerBase, Store {
     return '''
 produtoModel: ${produtoModel},
 id: ${id},
-quantidadeCliente: ${quantidadeCliente},
+quantidade: ${quantidade},
 selectedProduct: ${selectedProduct},
+observacoes: ${observacoes},
 totalCompra: ${totalCompra}
     ''';
   }
