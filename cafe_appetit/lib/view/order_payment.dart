@@ -99,198 +99,209 @@ class OrderPayment extends StatelessWidget {
         children: [
           Container(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Informações para o pedido',
-                        style: TextStyle(
-                          color: Color(0xffE57A1F),
-                          fontSize: 24,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Container(
-                        height: 2,
-                        width: 240,
-                        color: Color(0xffB8CC3B),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Text(
-                        "Preencha as informações abaixo para concluir o pedido.",
-                        style: TextStyle(color: Colors.black54),
-                      ),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Finalizar pedido',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Text(
-                            '3 de 3',
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 8,
-                            width: MediaQuery.of(context).size.width - 32,
-                            decoration: BoxDecoration(
-                              color: Color(0xffFF8822),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(100),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      Column(
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'O cliente já pagou?',
+                            'Informações para o pedido',
                             style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                              color: Color(0xffE57A1F),
+                              fontSize: 24,
                             ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Container(
+                            height: 2,
+                            width: 240,
+                            color: Color(0xffB8CC3B),
                           ),
                           SizedBox(
                             height: 16,
                           ),
+                          Text(
+                            "Preencha as informações abaixo para concluir o pedido.",
+                            style: TextStyle(color: Colors.black54),
+                          ),
+                          SizedBox(
+                            height: 24,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Finalizar pedido',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                '3 de 3',
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 8,
+                                width: MediaQuery.of(context).size.width - 32,
+                                decoration: BoxDecoration(
+                                  color: Color(0xffFF8822),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 24,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'O cliente já pagou?',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                            ],
+                          ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 2,
-                  itemBuilder: (_, int index) {
-                    return Column(
+                    ),
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 2,
+                      itemBuilder: (_, int index) {
+                        return Column(
+                          children: [
+                            PaymentOptionsWidget(
+                              index: index,
+                              groupValueController: optionSelectedController,
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        PaymentOptionsWidget(
-                          index: index,
-                          groupValueController: optionSelectedController,
-                        ),
-                        SizedBox(
-                          height: 8,
+                        Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text(
+                            'Em que data o pedido foi realizado?',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ],
-                    );
-                  },
-                ),
-                Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    'Em que data o pedido foi realizado?',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
                     ),
-                  ),
-                ),
-                //Formulário responsável pela data que será selecionada pelo usuário.
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Observer(builder: (_) {
-                    return TextFormField(
-                      controller: calendarController.isConfirmedDate
-                          ? TextEditingController(
-                              text: calendarController.dateFormated)
-                          : null,
-                      style: TextStyle(color: Colors.black),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Escolha uma data';
-                        }
-                        return null;
-                      },
-                      //Bloqueia a escrita do usuário, pois ele terá que escolher uma data no calendário.
-                      readOnly: true,
-                      //Altera o valor da variável showDatePicker no calendarController, fazendo com que o Widget do calendário apareça.
-                      onTap: () {
-                        calendarController.setShowDatePicker();
-                      },
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.today,
-                          color: calendarController.isShowingDatePicker
-                              ? Color(0xffff8822)
-                              : Colors.black38,
-                        ),
-                        suffixIcon: Icon(
-                          Icons.arrow_forward_ios,
-                          size: 15,
-                          color: Color(0xffff8822),
-                        ),
-                        hintText: "This is a data input.",
-                        labelText: calendarController.isConfirmedDate
-                            ? "Data"
-                            : "Selecione uma data",
-                        labelStyle: TextStyle(
-                          color: calendarController.isShowingDatePicker
-                              ? Color(0xffff8822)
-                              : Colors.black38,
-                        ),
-                        hintStyle: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 16.0,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: BorderSide(color: Colors.black38),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: BorderSide(
+                    //Formulário responsável pela data que será selecionada pelo usuário.
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Observer(builder: (_) {
+                        return TextFormField(
+                          controller: calendarController.isConfirmedDate
+                              ? TextEditingController(
+                                  text: calendarController.dateFormated)
+                              : null,
+                          style: TextStyle(color: Colors.black),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Escolha uma data';
+                            }
+                            return null;
+                          },
+                          //Bloqueia a escrita do usuário, pois ele terá que escolher uma data no calendário.
+                          readOnly: true,
+                          //Altera o valor da variável showDatePicker no calendarController, fazendo com que o Widget do calendário apareça.
+                          onTap: () {
+                            calendarController.setShowDatePicker();
+                          },
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.today,
                               color: calendarController.isShowingDatePicker
-                                  ? Color(0xffFF8822)
-                                  : Colors.black38),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xffc75b20),
+                                  ? Color(0xffff8822)
+                                  : Colors.black38,
+                            ),
+                            suffixIcon: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                              color: Color(0xffff8822),
+                            ),
+                            hintText: "This is a data input.",
+                            labelText: calendarController.isConfirmedDate
+                                ? "Data"
+                                : "Selecione uma data",
+                            labelStyle: TextStyle(
+                              color: calendarController.isShowingDatePicker
+                                  ? Color(0xffff8822)
+                                  : Colors.black38,
+                            ),
+                            hintStyle: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 16.0,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(color: Colors.black38),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              borderSide: BorderSide(
+                                  color: calendarController.isShowingDatePicker
+                                      ? Color(0xffFF8822)
+                                      : Colors.black38),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xffc75b20),
+                              ),
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                      ),
-                      showCursor: false,
-                    );
-                  }),
-                ),
-                SizedBox(
-                  height: 50,
+                          showCursor: false,
+                        );
+                      }),
+                    ),
+                  ],
                 ),
                 //Botão Finalizar Pedido e sua estilização.
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.only(
+                    left: 16.0,
+                    right: 16.0,
+                    bottom: 40,
+                  ),
                   child: Observer(builder: (_) {
                     return Container(
                       height: 48.0,

@@ -258,7 +258,7 @@ class _LoginState extends State<Login> {
                         width: 20,
                       ),
                       CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
                     ],
                   ),
