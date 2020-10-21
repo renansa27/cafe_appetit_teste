@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         accentColor: Color(0xffFF8822),
       ),
       //Rota inicial
-      initialRoute: '/orderInfo',
+      initialRoute: '/login',
       //Rotas do App
       routes: {
         '/login': (context) => Login(),
