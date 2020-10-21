@@ -159,7 +159,15 @@ em sua máquina.</font></font></li>
     </aside>
   </div>
   <h2>Abrindo o projeto no Android Studio</h2>
-  <p>Clique em Open an existing Android Studio project</p>
+  <ol>
+   <li>
+   <p>Clique em Open an existing Android Studio project</p>
+   </li>
+   <li>
   <p>Procure pela pasta cafe_appetit_teste, entre na pasta e selecione o projeto cafe_appetit</p>
+      </li>
+   <li>
   <p>Abra o terminal e digite flutter pub get para baixar dependencias do projeto.</p>
+      </li>
+   </ol>
   
