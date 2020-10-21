@@ -1,5 +1,4 @@
 import 'package:cafe_appetit/controller/calendar_controller.dart';
-import 'package:cafe_appetit/controller/date_picker_controller.dart';
 import 'package:cafe_appetit/controller/option_selected.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -9,8 +8,7 @@ class OrderPayment extends StatelessWidget {
   final CalendarController calendarController = CalendarController();
   final OptionSelectedController optionSelectedController =
       OptionSelectedController();
-  final DateTimePickerController dateTimePickerController =
-      DateTimePickerController();
+  //Responsável por pegar a String referente ao dia solicitado.
   String getDayString(int numDay) {
     switch (numDay) {
       case 0:
@@ -37,6 +35,7 @@ class OrderPayment extends StatelessWidget {
     }
   }
 
+  //Responsável por pegar a String referente ao mês solicitado
   String getMonthString(int numMonth) {
     switch (numMonth) {
       case 1:
@@ -100,7 +99,6 @@ class OrderPayment extends StatelessWidget {
         children: [
           Container(
             child: Column(
-              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(

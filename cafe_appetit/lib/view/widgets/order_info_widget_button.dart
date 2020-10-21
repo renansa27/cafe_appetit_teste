@@ -1,3 +1,5 @@
+//Botão que contém informações de um produto específico.
+
 import 'package:cafe_appetit/controller/carrinho_controller.dart';
 import 'package:cafe_appetit/controller/produto_controller.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +14,11 @@ class OrderInfoWidgetButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final produto = carrinhoController.lista[produtoController.produtoModel.id];
-    //final OrderInfoModel order = ModalRoute.of(context).settings.arguments;
     return FlatButton(
       child: Observer(builder: (_) {
         return Container(
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            //color: produtoController.selectedProduct
             color: produto.selectedProduct ? Color(0xffFF8822) : Colors.white,
             borderRadius: BorderRadius.circular(4.0),
             boxShadow: [

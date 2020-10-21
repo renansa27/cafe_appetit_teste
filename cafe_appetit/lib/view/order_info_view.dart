@@ -197,9 +197,7 @@ class OrderInfo extends StatelessWidget {
                                 0xffFF8822,
                               ),
                             ),
-                            //focusColor: Color(0xffFF8822),
                           ),
-                          //onTap: () {},
                           onChanged: (value) {
                             print(value);
                           },
@@ -328,7 +326,6 @@ class OrderInfo extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      //'Total: R\$ ${carrinhoController.total.toStringAsFixed(2).replaceAll('.', ',')}',
                       'Total: R\$ ${carrinhoController.valorTotal.toStringAsFixed(2).replaceAll('.', ',')}',
                       style: TextStyle(
                         fontSize: 16,
@@ -364,10 +361,6 @@ class OrderInfo extends StatelessWidget {
                   ],
                 ),
               ),
-            /* Container(
-                  height: 0,
-                  width: 0,
-                ), */
           ],
         );
       }),

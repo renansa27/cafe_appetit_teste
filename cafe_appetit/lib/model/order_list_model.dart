@@ -1,3 +1,5 @@
+//Model da lista de pedidos realizados.
+
 import 'order_model.dart';
 
 class OrderListModel {

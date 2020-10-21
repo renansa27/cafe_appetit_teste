@@ -1,3 +1,5 @@
+//Model do produto
+
 class ProdutoModel {
   int id;
   String image;

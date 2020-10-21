@@ -1,3 +1,5 @@
+//Label que contém informações de um produto específico.
+
 import 'package:cafe_appetit/model/produto_model.dart';
 import 'package:flutter/material.dart';
 

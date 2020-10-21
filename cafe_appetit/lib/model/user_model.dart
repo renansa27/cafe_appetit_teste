@@ -1,3 +1,5 @@
+//Model do usuário
+
 import 'package:cafe_appetit/model/cliente_model.dart';
 
 class UserModel {

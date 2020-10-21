@@ -1,3 +1,5 @@
+//Radio para o usuário selecionar se o pedido já foi pago ou não.
+
 import 'package:cafe_appetit/controller/option_selected.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';

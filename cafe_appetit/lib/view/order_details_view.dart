@@ -12,10 +12,10 @@ class OrderDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     //0 -> productController || 1-> carrinhoController
     List args = ModalRoute.of(context).settings.arguments;
-    ProdutoController produtoController = args[0];
-    CarrinhoController carrinhoController = args[1];
+    ProdutoController produtoController = args[0]; //Controller do produto
+    CarrinhoController carrinhoController = args[1]; //Controller do carrinho
     OptionSelectedController optionSelectedController =
-        OptionSelectedController();
+        OptionSelectedController(); //Controller da seleção da opção
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
       appBar: AppBar(
@@ -228,7 +228,6 @@ class OrderDetails extends StatelessWidget {
                       Flexible(
                         flex: 6,
                         child: Container(
-                          /* width: MediaQuery.of(context).size.width * 0.5, */
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: Color(0xffFF8822),

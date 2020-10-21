@@ -1,4 +1,6 @@
 import 'package:cafe_appetit/model/cliente_model.dart';
+//Model da lista de pedidos que será realizada.
+
 import 'package:cafe_appetit/model/produto_model.dart';
 
 class OrderModel {

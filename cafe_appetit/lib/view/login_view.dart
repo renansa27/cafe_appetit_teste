@@ -1,3 +1,7 @@
+//Utilizei o Firebase para serviço de login, entretanto
+//não fiz uma integração de dados completa por lá, pois
+//estou mockando para ficar mais fácil de entender a lógica.
+
 import 'package:cafe_appetit/service/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -73,7 +77,6 @@ class _LoginState extends State<Login> {
                         children: <Widget>[
                           //Login
                           TextFormField(
-                            //controller: loginControllerField,
                             style: TextStyle(color: Colors.black),
                             validator: (value) {
                               if (value.isEmpty) {
@@ -123,7 +126,6 @@ class _LoginState extends State<Login> {
                             height: 24.0,
                           ),
                           TextFormField(
-                            //controller: senhaController,
                             style: TextStyle(color: Colors.black),
                             validator: (value) {
                               if (value.isEmpty) {
@@ -153,7 +155,6 @@ class _LoginState extends State<Login> {
                               labelText: loginController.showLabelSenha
                                   ? "Senha"
                                   : null,
-                              //floatingLabelBehavior: FloatingLabelBehavior.auto,
                               hintText: "Insira a sua senha aqui",
                               hintStyle: TextStyle(
                                 color: Colors.black54,
@@ -184,7 +185,6 @@ class _LoginState extends State<Login> {
                           SizedBox(
                             height: 20.0,
                           ),
-                          //buildTextField('Senha'),
                           SizedBox(
                             height: 40.0,
                           ),
@@ -216,7 +216,7 @@ class _LoginState extends State<Login> {
           return FlatButton(
             onPressed: loginController.btnLiberado
                 ? () {
-                    // If the form is valid, display a Snackbar.
+                    // Verifica se o formulário está validado/preenchido
                     if (_formKey.currentState.validate()) {
                       // Login user in app
                       _setLoading();

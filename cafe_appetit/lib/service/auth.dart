@@ -1,3 +1,5 @@
+//Classe responsável pela autenticação do usuário no Firebase
+
 import 'package:cafe_appetit/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../main.dart';
@@ -15,12 +17,8 @@ class AuthService {
         email: loginController.login,
         password: loginController.senha,
       );
-      //if (authResult.user.emailVerified) {
       await _populateCurrentUser(authResult.user);
       return true;
-      //} else {
-      //return "Email não verificado";
-      //}
     } catch (e) {
       return e;
     }
@@ -50,18 +48,6 @@ class AuthService {
     }
   }
 
-  Future<dynamic> resetPassword() async {
-    try {
-      await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: userController.user.email);
-    } catch (e) {
-      //There is no user record corresponding to this identifier. The user may have been deleted.
-      //Given String is empty or null
-      return e.message;
-    }
-    return true;
-  }
-
   Future<bool> isUserLoggedIn() async {
     var user = _firebaseAuth.currentUser;
     bool res = await _populateCurrentUser(user);
@@ -76,12 +62,5 @@ class AuthService {
     } else {
       return false;
     }
-  }
-
-  Future<bool> singOut() async {
-    await _firebaseAuth.signOut().then((value) => {
-          print("Usuário deslogado"),
-        });
-    return true;
   }
 }

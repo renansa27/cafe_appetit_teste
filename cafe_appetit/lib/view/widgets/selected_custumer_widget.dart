@@ -1,3 +1,5 @@
+//View de um cliente específico.
+
 import 'package:cafe_appetit/controller/cliente_controller.dart';
 import 'package:cafe_appetit/controller/select_customers_controller.dart';
 import 'package:cafe_appetit/model/cliente_model.dart';
@@ -19,6 +21,7 @@ class SelectedCustumerWidget extends StatelessWidget {
     return Observer(builder: (_) {
       return Container(
         decoration: BoxDecoration(
+          //Verifica se o cliente foi selecionado, mudando a cor do seu container
           color: clienteController.selectedCustumer
               ? Color(0xffFF8822)
               : Colors.white,
@@ -78,6 +81,8 @@ class SelectedCustumerWidget extends StatelessWidget {
               ],
             ),
           ),
+          //Incrementa/Decrementa o contador de clientes selecionados.
+          //Muda o valor da booleana que controla se o cliente específico está ou não selecionado.
           onPressed: () {
             clienteController.selectedCustumer
                 ? selectCustumersController.decrementCustumer()

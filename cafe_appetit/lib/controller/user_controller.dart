@@ -1,3 +1,5 @@
+//Controller do usuário
+
 import 'package:cafe_appetit/model/user_model.dart';
 import 'package:mobx/mobx.dart';
 part 'user_controller.g.dart';

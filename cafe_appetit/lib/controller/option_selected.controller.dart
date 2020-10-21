@@ -1,3 +1,5 @@
+//Controller das opções, tem o controle do index da opção selecionada pelo o usuário
+
 import 'package:mobx/mobx.dart';
 part 'option_selected.controller.g.dart';
 

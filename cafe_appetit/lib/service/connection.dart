@@ -1,3 +1,5 @@
+//Classe responsável pela conexão com o Firebase
+
 import 'package:cafe_appetit/model/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
@@ -23,22 +25,6 @@ class ConnectionFirebase {
     }
   }
 
-  Future<bool> createMachine(String id) async {
-    final machine = FirebaseFirestore.instance.collection("Machines");
-    try {
-      DocumentSnapshot res = await machine.doc(id).get();
-      //Seta o ID da máquina que está atendendo o cliente
-      //machineController.setId(id);
-      //Seta a lista de produtos da máquina
-      //machineController.setProductsMap(res.data()['listProductsMachine']);
-      return true;
-      //print(machineController.listProductsMachine);
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-
   Future getUser(String uid) async {
     try {
       var userData = await databaseUser.doc(uid).get();
@@ -49,40 +35,6 @@ class ConnectionFirebase {
         return e.message;
       }
       return e.toString();
-    }
-  }
-
-  Future<bool> realizarCompra() async {
-    //print('Total Mobx: ${produtoController.totalCompra}');
-    /* double total = double.parse(
-        (userController.user.saldo - produtoController.totalCompra)
-            .toStringAsFixed(2));
-    userController.setUserModelSaldo(total); */
-    print(userController.user);
-    try {
-      await databaseUser
-          .doc(userController.user.id)
-          .set(userController.user.toJson());
-      return true;
-    } catch (e) {
-      print('Something went wrong!');
-      return false;
-    }
-  }
-
-  Future<bool> addCredito(double credito) async {
-    /* double total =
-        double.parse((userController.user.saldo + credito).toStringAsFixed(2));
-    userController.setUserModelSaldo(total); */
-    print(userController.user);
-    try {
-      await databaseUser
-          .doc(userController.user.id)
-          .set(userController.user.toJson());
-      return true;
-    } catch (e) {
-      print('Something went wrong!');
-      return false;
     }
   }
 }

@@ -1,3 +1,5 @@
+//Controller do produto, contém informações de um produto determinado.
+
 import 'package:cafe_appetit/model/produto_model.dart';
 import 'package:mobx/mobx.dart';
 part 'produto_controller.g.dart';

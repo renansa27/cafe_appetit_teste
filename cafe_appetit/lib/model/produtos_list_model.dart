@@ -1,3 +1,5 @@
+//Model da lista de produtos com a categoria.
+
 import 'package:cafe_appetit/model/produto_model.dart';
 
 class ProdutosList {

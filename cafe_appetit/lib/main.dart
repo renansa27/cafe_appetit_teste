@@ -19,7 +19,7 @@ import 'view/select_customers_view.dart';
 final userController = UserController();
 final machineController = OrdersListController();
 final loginController = LoginController();
-CarrinhoController carrinhoController = CarrinhoController();
+final carrinhoController = CarrinhoController();
 
 Future<void> main() async {
   //Duas linhas necessárias para o funcinamento do Firebase

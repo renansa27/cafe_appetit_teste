@@ -1,3 +1,5 @@
+//Página para selecionar os clientes do pedido.
+
 import 'package:cafe_appetit/controller/cliente_controller.dart';
 import 'package:cafe_appetit/controller/select_customers_controller.dart';
 import 'package:cafe_appetit/model/cliente_model.dart';
@@ -11,6 +13,7 @@ class SelectCustomers extends StatelessWidget {
   Widget build(BuildContext context) {
     final SelectCustumersController selectCustumersController =
         SelectCustumersController();
+    //Clientes mockados.
     final List<ClienteModel> listaClientes = [
       ClienteModel(
         image: 'lib/assets/JustinePhoto.png',
@@ -25,6 +28,7 @@ class SelectCustomers extends StatelessWidget {
         name: 'Bairam Frootan',
       ),
     ];
+    //Largura do dispositivo
     final deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
@@ -43,7 +47,6 @@ class SelectCustomers extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -193,22 +196,6 @@ class SelectCustomers extends StatelessWidget {
                 ],
               ),
             ),
-            /* Container(
-              width: MediaQuery.of(context).size.width - 32,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  FloatingActionButton(
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                    backgroundColor: Color(0xffff8822),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ), */
           ],
         ),
       ),
@@ -243,6 +230,7 @@ class SelectCustomers extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    //Ajusta de acordo com o número de clientes selecionado.
                     Text(
                       selectCustumersController.selectedCustumerQnt == 1
                           ? '1 cliente selecionado'

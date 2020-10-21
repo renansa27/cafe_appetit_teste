@@ -1,3 +1,6 @@
+//Página apresentada depois de um pedido realizado com sucesso
+//É possível fazer um novo pedido ou retornar para a página home, que contém o histórico de pedidos.
+
 import 'package:flutter/material.dart';
 
 class OrderDone extends StatelessWidget {

@@ -1,3 +1,5 @@
+//Widget responsável pela view das opções a serem selecionadas pelo usuário
+
 import 'package:cafe_appetit/controller/option_selected.controller.dart';
 import 'package:cafe_appetit/controller/produto_controller.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +15,6 @@ class OptionSelectorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //padding: EdgeInsets.symmetric(horizontal: 19),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.black38,

@@ -10,9 +10,11 @@ import 'widgets/order_widget.dart';
 
 class Home extends StatelessWidget {
   final ScrollController scrollController = ScrollController();
+  //Dado mockado simulando um dado recebido
+  //Estrutura Map<DateTime, List<OrderModel>>
+  //Relação de pedidos por dia, para informar o histórico de vendas.
   final OrderListModel listOrdersByDay = OrderListModel(
     listOrder: {
-      //Dia 23/10/2020
       DateTime.parse('2020-10-23'): [
         OrderModel(
           cliente: ClienteModel(name: 'Hanna Montana'),

@@ -1,3 +1,5 @@
+//Label para mostrar o histórico de um pedido de um cliente específico.
+
 import 'package:cafe_appetit/controller/orders_list.dart';
 import 'package:cafe_appetit/model/order_model.dart';
 import 'package:flutter/material.dart';
@@ -52,8 +54,6 @@ class OrderWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        //'Teste',
-                        //produto.order,
                         description,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(

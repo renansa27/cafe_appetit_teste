@@ -1,3 +1,5 @@
+//Controller do número de clientes selecionados.
+
 import 'package:mobx/mobx.dart';
 part 'select_customers_controller.g.dart';
 
