@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       //Linguagens suportadas, verifica e muda de acordo com o idioma do smartphone.
+      //Necessário para mudar o idioma do MonthPicker
       supportedLocales: [
         const Locale('en'),
         const Locale('pt'),
