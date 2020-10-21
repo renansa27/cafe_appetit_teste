@@ -28,8 +28,6 @@ dependencies:
   mobx:
   flutter_mobx:
   mobx_codegen:
-  step_progress_indicator: ^0.2.4+7
-  flutter_date_pickers: ^0.1.7
   flutter_localizations:
     sdk: flutter
 

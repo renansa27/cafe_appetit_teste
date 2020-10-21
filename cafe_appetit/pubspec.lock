@@ -258,13 +258,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_date_pickers:
-    dependency: "direct main"
-    description:
-      name: flutter_date_pickers
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.7"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -502,13 +495,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0-nullsafety.1"
-  step_progress_indicator:
-    dependency: "direct main"
-    description:
-      name: step_progress_indicator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.4+7"
   stream_channel:
     dependency: transitive
     description:
