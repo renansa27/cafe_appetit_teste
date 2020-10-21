@@ -169,5 +169,16 @@ em sua máquina.</font></font></li>
    <li>
   <p>Abra o terminal e digite <code>flutter pub get</code> para baixar dependencias do projeto.</p>
       </li>
+   <li><p>Após terminar de baixar a dependencias do projeto, rode o comando <code>flutter run</code> para o aplicativo ser instalado no seu emulador/smartphone</p></li>
    </ol>
+  <h2>Desenvolvimento do desafio</h2>
+  <h3>Tecnologias utilizadas</h3>
+  <p>Para resolver o desafio proposto pela empresa, além do Flutter/Dart, resolvi utilizar o Mobx para fazer a gerência de estado, pois ele é mais simples e rápido para utilização, entretanto poderia ter utilizado o BLoC, Get entre outros gerenciadores de estado.</p>
+  <p>Utilizei o Firebase apenas para auxiliar no Login do usuário, entretanto tenho um bom conhecimento na tecnologia, pois tenho um Aplicativo (Contacts Saver) publicado na Google Play em que faço todo o gerenciamento de dados na nuvem da Google/Firebase, entretanto achei que não seria o foco do desafio.</p>
+  <h3>Configurações do desafio</h3>
+  <p>Adicionei a fonte Open Sans no projeto</p>
+  <p>Adicionei o flutter_localizations para poder adicionar o idioma pt, fazendo com que o aplicativo altere o idioma do MonthPicker de acordo com o idioma do usuário, que no caso do desafio é o Português</p>
+  <h3>Usuário default para o aplicativo</h3>
+  <p>login: admin@gmail.com</p>
+  <p>senha: admin123</p>
   
