@@ -181,4 +181,5 @@ em sua máquina.</font></font></li>
   <h3>Usuário default para o aplicativo</h3>
   <p>login: admin@gmail.com</p>
   <p>senha: admin123</p>
-  
+  <h3>Considerações finais</h3>
+  <p>Acredito que foi um ótimo teste proposto pela equipe da Maida, tentei deixar o mais parecido possível com o que foi passado, espero obter sucesso e ter a oportunidade de trabalhar com a equipe de vocês!</p>
